@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -8,33 +10,32 @@ import {
 
 const faqs = [
   {
-    question: "전기료 절감은 어떻게 이루어지나요?",
+    question: "정말 무료인가요?",
     answer:
-      "AI가 귀사의 전력 사용 패턴을 실시간으로 분석하여 피크 타임 분산, 대기전력 최적화, 요금제 전환 등 맞춤형 절감 전략을 제안합니다. 별도의 하드웨어 설치 없이 소프트웨어만으로 절감을 실현합니다.",
+      "네, 초기 진단과 상담은 완전 무료입니다. 절감 가능 금액을 확인하신 후 도입 여부를 결정하시면 됩니다. 부담 없이 문의해 주세요.",
   },
   {
-    question: "도입 비용과 투자 대비 효과(ROI)는 어떻게 되나요?",
+    question: "상담은 얼마나 걸리나요?",
     answer:
-      "초기 도입 비용 없이 월 구독료 방식으로 운영됩니다. 평균적으로 도입 후 3개월 내 투자 비용을 회수하며, 연간 전기료의 15-30%를 절감하는 것으로 검증되었습니다.",
+      "신청 후 24시간 내 담당자가 연락드립니다. 기본 상담은 30분 내외로 진행되며, 현장 조건에 따라 달라질 수 있습니다.",
   },
   {
-    question: "KEPCO 연동은 안전한가요?",
+    question: "공사해야 하나요?",
     answer:
-      "네, 한전 공식 API를 통해 암호화된 연동을 진행합니다. ISO 27001 인증을 받은 보안 체계로 데이터를 보호하며, 사용자 동의 없이는 어떠한 데이터도 활용되지 않습니다.",
+      "대부분의 경우 별도 공사 없이 진행 가능합니다. 일부 설비 최적화가 필요한 경우에도 운영 중단 없이 진행합니다. 조건에 따라 달라질 수 있습니다.",
   },
   {
-    question: "어떤 규모의 기업에 적합한가요?",
+    question: "무조건 전기료가 아껴지나요?",
     answer:
-      "월 전기료 100만원 이상 사용하는 모든 기업에 적합합니다. 중소기업부터 대기업까지 맞춤형 솔루션을 제공하며, 제조업, 유통업, 사무실 빌딩 등 업종에 관계없이 도입 가능합니다.",
-  },
-  {
-    question: "계약 기간과 해지 조건은 어떻게 되나요?",
-    answer:
-      "최소 계약 기간은 3개월이며, 이후 월 단위로 자유롭게 해지 가능합니다. 해지 시 위약금이 없으며, 남은 기간에 대한 환불도 제공됩니다.",
+      "절감 효과는 시설 규모, 운영 패턴, 기존 설비 상태에 따라 달라집니다. 무료 진단을 통해 절감 가능 여부와 예상 금액을 먼저 확인해 드립니다.",
   },
 ];
 
 export function SectionFAQ() {
+  const scrollToForm = () => {
+    document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section id="faq" className="section-padding bg-secondary/30">
       <div className="container-tight">
@@ -48,9 +49,6 @@ export function SectionFAQ() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             자주 묻는 질문
           </h2>
-          <p className="text-lg text-muted-foreground">
-            궁금한 점이 있으시면 언제든 문의해주세요
-          </p>
         </motion.div>
 
         <motion.div
@@ -58,7 +56,7 @@ export function SectionFAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-3xl mx-auto mb-10"
         >
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
@@ -76,6 +74,22 @@ export function SectionFAQ() {
               </AccordionItem>
             ))}
           </Accordion>
+        </motion.div>
+
+        {/* Bottom CTA text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <p className="text-muted-foreground mb-4">
+            더 궁금한점이 있으신가요?
+          </p>
+          <Button onClick={scrollToForm} size="lg" className="gap-2">
+            상담 신청하기
+            <ArrowRight className="w-4 h-4" />
+          </Button>
         </motion.div>
       </div>
     </section>

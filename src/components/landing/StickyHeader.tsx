@@ -3,12 +3,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { label: "성과", href: "#achievements" },
-  { label: "프로세스", href: "#process" },
-  { label: "FAQ", href: "#faq" },
-];
-
 export function StickyHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,25 +31,25 @@ export function StickyHeader() {
       }`}
     >
       <div className="container-tight flex items-center justify-between h-16 md:h-20 px-5">
-        <a href="#" className="text-xl md:text-2xl font-bold text-foreground">
-          EN:TER
-        </a>
+        {/* Logo */}
+        <div className="flex flex-col">
+          <a href="#" className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+            NX
+          </a>
+          <span className="text-[10px] md:text-xs text-muted-foreground -mt-1">
+            에너지 최적화 기업
+          </span>
+        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <span className="text-xs text-muted-foreground">
+            1분이면 완료 · 무료 상담 · 24시간 내 회신
+          </span>
           <Button onClick={scrollToForm} size="sm">
-            무료 상담 신청
+            절감 가능한 전기료 조회하기
           </Button>
-        </nav>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -75,21 +69,14 @@ export function StickyHeader() {
           exit={{ opacity: 0, y: -10 }}
           className="md:hidden bg-background border-t border-border"
         >
-          <nav className="flex flex-col p-5 gap-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button onClick={scrollToForm} className="w-full mt-2">
-              무료 상담 신청
+          <div className="flex flex-col p-5 gap-4">
+            <p className="text-xs text-muted-foreground text-center">
+              1분이면 완료 · 무료 상담 · 24시간 내 회신
+            </p>
+            <Button onClick={scrollToForm} className="w-full">
+              절감 가능한 전기료 조회하기
             </Button>
-          </nav>
+          </div>
         </motion.div>
       )}
     </motion.header>

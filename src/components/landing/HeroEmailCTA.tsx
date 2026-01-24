@@ -2,7 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { z } from "zod";
+
+const emailSchema = z.string().trim().email({ message: "올바른 이메일 형식을 입력해주세요" });
 
 interface HeroEmailCTAProps {
   onEmailSubmit: (email: string) => void;
@@ -14,16 +17,19 @@ export function HeroEmailCTA({ onEmailSubmit }: HeroEmailCTAProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
-      setError("이메일을 입력해주세요");
+    
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      setError(result.error.errors[0].message);
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("올바른 이메일 형식을 입력해주세요");
-      return;
-    }
+    
     setError("");
-    onEmailSubmit(email);
+    onEmailSubmit(result.data);
+    document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToForm = () => {
     document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -50,34 +56,32 @@ export function HeroEmailCTA({ onEmailSubmit }: HeroEmailCTAProps) {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-accent-foreground text-sm font-medium mb-8"
           >
-            <Zap className="w-4 h-4" />
-            <span>기업 전기료 절감 솔루션</span>
+            <span>NX | 에너지 최적화 기업</span>
           </motion.div>
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 text-balance">
-            전기료, 더 이상
+            매년 오르는 전기료,
             <br />
-            <span className="gradient-text">과다 지출</span>하지 마세요
+            <span className="gradient-text">지금 바로 절감하세요.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl mx-auto text-balance">
-            AI 기반 실시간 분석으로 평균 <strong className="text-foreground">23%</strong> 전기료 절감.
-            무료 진단으로 절감 가능 금액을 확인하세요.
+            NX의 고객들은 이미 연 평균 <strong className="text-foreground">17%</strong>의 전기료를 절감하고 있습니다.
           </p>
 
-          {/* Email CTA Form */}
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-1">
+          {/* Email CTA Form - Boxed */}
+          <div className="max-w-lg mx-auto bg-card rounded-2xl border border-border shadow-card p-6 md:p-8 mb-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
                 <label htmlFor="hero-email" className="sr-only">
-                  이메일 주소
+                  업무용 이메일
                 </label>
                 <Input
                   id="hero-email"
                   type="email"
-                  placeholder="업무용 이메일 입력"
+                  placeholder="업무용 이메일을 입력하세요"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -86,23 +90,37 @@ export function HeroEmailCTA({ onEmailSubmit }: HeroEmailCTAProps) {
                   className="h-12 text-base bg-background border-border"
                   aria-describedby={error ? "hero-email-error" : undefined}
                 />
+                {error && (
+                  <p id="hero-email-error" className="text-sm text-destructive mt-2 text-left">
+                    {error}
+                  </p>
+                )}
               </div>
-              <Button type="submit" size="lg" className="h-12 px-6 gap-2 group">
+              <Button type="submit" size="lg" className="w-full h-12 gap-2 group">
                 전기료 절감 시작하기
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
-            </div>
-            {error && (
-              <p id="hero-email-error" className="text-sm text-destructive mt-2 text-left">
-                {error}
-              </p>
-            )}
-          </form>
+            </form>
+            <p className="text-sm text-muted-foreground mt-4 text-center">
+              1분이면 완료. 무료 상담. 24시간 내 회신.
+            </p>
+          </div>
 
-          {/* Trust text */}
-          <p className="text-sm text-muted-foreground mt-6">
-            ✓ 30초 만에 시작 · ✓ 무료 진단 제공 · ✓ 약정 없음
+          {/* Disclaimer */}
+          <p className="text-xs text-muted-foreground mb-8">
+            절감률은 시설/운영 조건에 따라 달라질 수 있습니다.
           </p>
+
+          {/* Secondary CTA */}
+          <Button 
+            onClick={scrollToForm} 
+            variant="outline" 
+            size="lg" 
+            className="gap-2"
+          >
+            절감 가능한 전기료 조회하기
+            <ArrowRight className="w-4 h-4" />
+          </Button>
         </motion.div>
       </div>
     </section>

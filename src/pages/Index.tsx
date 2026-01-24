@@ -5,7 +5,7 @@ import { SectionAchievements } from "@/components/landing/SectionAchievements";
 import { SectionTrust } from "@/components/landing/SectionTrust";
 import { SectionProcess } from "@/components/landing/SectionProcess";
 import { SectionFAQ } from "@/components/landing/SectionFAQ";
-import { LeadFormWizard } from "@/components/landing/LeadFormWizard";
+import { LeadFormSection } from "@/components/landing/LeadFormSection";
 import { Footer } from "@/components/landing/Footer";
 
 const Index = () => {
@@ -24,7 +24,7 @@ const Index = () => {
         <SectionTrust />
         <SectionProcess />
         <SectionFAQ />
-        <LeadFormWizard prefilledEmail={prefilledEmail} />
+        <LeadFormSection prefilledEmail={prefilledEmail} />
       </main>
       <Footer />
     </div>
