@@ -26,25 +26,25 @@ export function StickyHeader() {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-soft"
+          ? "bg-background/90 backdrop-blur-lg shadow-[0_1px_0_hsl(220_13%_91%)]"
           : "bg-transparent"
       }`}
     >
-      <div className="container-tight flex items-center justify-between h-16 md:h-20 px-5">
+      <div className="container-tight flex items-center justify-between h-16 md:h-18">
         {/* Logo */}
         <div className="flex flex-col">
-          <a href="#" className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+          <a href="#" className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
             NX
           </a>
-          <span className="text-[10px] md:text-xs text-muted-foreground -mt-1">
+          <span className="text-[10px] md:text-[11px] text-muted-foreground -mt-0.5 font-medium">
             에너지 최적화 기업
           </span>
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-5">
           <span className="text-xs text-muted-foreground">
-            1분이면 완료 · 무료 상담 · 24시간 내 회신
+            1분이면 완료 · 무료 상담
           </span>
           <Button onClick={scrollToForm} size="sm">
             절감 가능한 전기료 조회하기
@@ -53,11 +53,11 @@ export function StickyHeader() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-foreground"
+          className="md:hidden p-2 text-foreground hover:bg-accent rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
@@ -67,7 +67,7 @@ export function StickyHeader() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-background border-t border-border"
+          className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border"
         >
           <div className="flex flex-col p-5 gap-4">
             <p className="text-xs text-muted-foreground text-center">

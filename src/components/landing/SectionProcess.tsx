@@ -29,21 +29,21 @@ export function SectionProcess() {
   };
 
   return (
-    <section id="process" className="section-padding bg-background">
+    <section id="process" className="section-padding section-subtle">
       <div className="container-tight">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-14 md:mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            이렇게 진행됩니다.
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
+            이렇게 진행됩니다
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 mb-14">
           {steps.map((item, index) => (
             <motion.div
               key={item.step}
@@ -55,27 +55,27 @@ export function SectionProcess() {
             >
               {/* Connector line (desktop only) */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-border" />
+                <div className="hidden md:block absolute top-12 left-1/2 w-full h-px bg-border" />
               )}
               
-              <div className="relative bg-card rounded-2xl p-6 md:p-8 shadow-card border border-border text-center">
+              <div className="relative bg-card rounded-2xl p-7 md:p-8 shadow-[0_4px_24px_-4px_hsl(220_20%_10%/0.08)] border border-border text-center">
                 {/* Step number */}
-                <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-sm font-bold text-primary-foreground">
+                <div className="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_8px_-2px_hsl(217_90%_55%/0.4)]">
+                  <span className="text-xs font-bold text-primary-foreground">
                     {item.step}
                   </span>
                 </div>
                 
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center mx-auto mb-5">
+                  <item.icon className="w-6 h-6 text-primary" />
                 </div>
                 
                 {/* Content */}
                 <h3 className="text-xl font-bold text-foreground mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
               </div>

@@ -29,21 +29,21 @@ export function SectionAchievements() {
   };
 
   return (
-    <section id="achievements" className="section-padding bg-background">
+    <section id="achievements" className="section-padding section-subtle">
       <div className="container-tight">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-14 md:mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
             검증된 실적
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-8">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 mb-10">
           {achievements.map((item, index) => (
             <motion.div
               key={item.title}
@@ -51,12 +51,12 @@ export function SectionAchievements() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card rounded-2xl p-6 md:p-8 shadow-card border border-border text-center"
+              className="bg-card rounded-2xl p-7 md:p-8 shadow-[0_4px_24px_-4px_hsl(220_20%_10%/0.08)] border border-border text-center"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-5">
                 <item.icon className="w-6 h-6" />
               </div>
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+              <p className="text-3xl md:text-4xl font-extrabold text-primary mb-2 tracking-tight">
                 {item.stat}
               </p>
               <p className="text-base font-semibold text-foreground mb-1">
@@ -74,9 +74,9 @@ export function SectionAchievements() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-xs text-muted-foreground text-center mb-8"
+          className="text-[11px] text-muted-foreground/70 text-center mb-10"
         >
-          실적/절감 수치는 프로젝트 조건에 따라 달라질 수 있습니다.
+          * 실적/절감 수치는 프로젝트 조건에 따라 달라질 수 있습니다.
         </motion.p>
 
         {/* CTA */}

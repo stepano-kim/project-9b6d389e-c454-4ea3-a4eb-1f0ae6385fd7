@@ -37,12 +37,14 @@
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
+    /* Custom tokens - Premium minimal style */
     --gradient-hero: linear-gradient(135deg, hsl(217 90% 55%) 0%, hsl(220 87% 40%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(220 14% 98%) 0%, hsl(0 0% 100%) 100%);
-    --shadow-soft: 0 4px 20px -4px hsl(220 20% 10% / 0.08);
-    --shadow-card: 0 8px 32px -8px hsl(220 20% 10% / 0.12);
-    --shadow-elevated: 0 20px 60px -15px hsl(220 20% 10% / 0.15);
+    --gradient-subtle: linear-gradient(180deg, hsl(217 90% 98%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-section: linear-gradient(180deg, hsl(220 14% 97%) 0%, hsl(220 14% 99%) 100%);
+    --shadow-soft: 0 2px 12px -2px hsl(220 20% 10% / 0.06);
+    --shadow-card: 0 4px 24px -4px hsl(220 20% 10% / 0.08);
+    --shadow-elevated: 0 12px 40px -8px hsl(220 20% 10% / 0.12);
+    --shadow-button: 0 2px 8px -2px hsl(217 90% 55% / 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -112,11 +114,11 @@
 
 @layer components {
   .section-padding {
-    @apply px-5 py-16 md:px-8 md:py-24 lg:py-32;
+    @apply px-5 py-20 md:px-8 md:py-28 lg:py-36;
   }
 
   .container-tight {
-    @apply mx-auto max-w-6xl;
+    @apply mx-auto max-w-5xl px-4;
   }
 
   .text-balance {
@@ -126,5 +128,16 @@
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-hero);
+  }
+
+  /* Premium card style */
+  .card-premium {
+    @apply bg-card rounded-2xl border border-border;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Subtle section background */
+  .section-subtle {
+    background: var(--gradient-section);
   }
 }

@@ -37,16 +37,16 @@ export function SectionFAQ() {
   };
 
   return (
-    <section id="faq" className="section-padding bg-secondary/30">
+    <section id="faq" className="section-padding bg-background">
       <div className="container-tight">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
             자주 묻는 질문
           </h2>
         </motion.div>
@@ -56,19 +56,19 @@ export function SectionFAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-3xl mx-auto mb-10"
+          className="max-w-2xl mx-auto mb-12"
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-background rounded-xl border border-border px-6 shadow-soft"
+                className="bg-card rounded-2xl border border-border px-6 shadow-[0_2px_12px_-2px_hsl(220_20%_10%/0.06)]"
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5 text-[15px]">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
+                <AccordionContent className="text-muted-foreground pb-5 text-sm leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -76,20 +76,23 @@ export function SectionFAQ() {
           </Accordion>
         </motion.div>
 
-        {/* Bottom CTA text */}
+        {/* Bottom CTA - softer approach */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-muted-foreground mb-4">
-            더 궁금한점이 있으신가요?
+          <p className="text-sm text-muted-foreground mb-4">
+            더 궁금한 점이 있으신가요?
           </p>
-          <Button onClick={scrollToForm} size="lg" className="gap-2">
+          <button 
+            onClick={scrollToForm}
+            className="text-sm text-primary hover:text-primary-hover transition-colors font-medium inline-flex items-center gap-1.5"
+          >
             상담 신청하기
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </motion.div>
       </div>
     </section>

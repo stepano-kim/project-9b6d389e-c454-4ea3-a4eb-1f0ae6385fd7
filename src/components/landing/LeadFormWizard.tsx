@@ -372,16 +372,16 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Progress Indicator */}
-      <div className="mb-8">
+      <div className="mb-10">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-foreground">
+          <span className="text-sm font-semibold text-foreground">
             {currentStep} / {steps.length}
           </span>
           <span className="text-sm text-muted-foreground">
             {steps[currentStep - 1].title}
           </span>
         </div>
-        <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-primary rounded-full"
             initial={{ width: 0 }}
@@ -390,20 +390,20 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
           />
         </div>
         {/* Step Icons */}
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-5">
           {steps.map((step) => (
             <div key={step.id} className="flex flex-col items-center">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                   currentStep >= step.id
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground shadow-[0_2px_8px_-2px_hsl(217_90%_55%/0.4)]"
                     : "bg-muted text-muted-foreground"
                 }`}
               >
                 <step.icon className="w-4 h-4" />
               </div>
               <span
-                className={`text-xs mt-1.5 hidden sm:block ${
+                className={`text-[11px] mt-1.5 hidden sm:block font-medium ${
                   currentStep >= step.id ? "text-foreground" : "text-muted-foreground"
                 }`}
               >
@@ -415,7 +415,7 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
       </div>
 
       {/* Form Card */}
-      <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
+      <div className="bg-card rounded-2xl shadow-[0_8px_32px_-8px_hsl(220_20%_10%/0.1)] border border-border p-6 md:p-8">
         <AnimatePresence mode="wait">
           {/* Step 1: Basic Info */}
           {currentStep === 1 && (
