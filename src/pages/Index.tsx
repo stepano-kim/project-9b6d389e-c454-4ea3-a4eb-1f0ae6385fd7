@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { StickyHeader } from "@/components/landing/StickyHeader";
+import { HeroEmailCTA } from "@/components/landing/HeroEmailCTA";
+import { SectionAchievements } from "@/components/landing/SectionAchievements";
+import { SectionTrust } from "@/components/landing/SectionTrust";
+import { SectionProcess } from "@/components/landing/SectionProcess";
+import { SectionFAQ } from "@/components/landing/SectionFAQ";
+import { LeadFormWizard } from "@/components/landing/LeadFormWizard";
+import { Footer } from "@/components/landing/Footer";
 
 const Index = () => {
+  const [prefilledEmail, setPrefilledEmail] = useState("");
+
+  const handleHeroEmailSubmit = (email: string) => {
+    setPrefilledEmail(email);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <StickyHeader />
+      <main>
+        <HeroEmailCTA onEmailSubmit={handleHeroEmailSubmit} />
+        <SectionAchievements />
+        <SectionTrust />
+        <SectionProcess />
+        <SectionFAQ />
+        <LeadFormWizard prefilledEmail={prefilledEmail} />
+      </main>
+      <Footer />
     </div>
   );
 };
