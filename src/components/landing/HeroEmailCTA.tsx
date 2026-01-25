@@ -72,7 +72,7 @@ export function HeroEmailCTA({
                 <label htmlFor="hero-email" className="sr-only">
                   업무용 이메일
                 </label>
-                <Input id="hero-email" type="email" placeholder="업무용 이메일을 입력하세요" value={email} onChange={e => {
+                <Input id="hero-email" type="email" placeholder="이메일을 입력하세요" value={email} onChange={e => {
                 setEmail(e.target.value);
                 if (error) setError("");
               }} className="h-12 text-base bg-background/50 border-border/60 rounded-xl focus:bg-background/80 transition-colors" aria-describedby={error ? "hero-email-error" : undefined} />
