@@ -55,10 +55,10 @@ export function HeroEmailCTA({
           
 
           {/* Headline - Strong hierarchy */}
-          <h1 className="text-[2.5rem] leading-[1.15] md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground mb-6 text-balance tracking-tight">
+          <h1 className="text-[2.5rem] leading-[1.3] md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground mb-6 text-balance tracking-tight">
             매년 오르는 전기료,
             <br />
-            <span className="gradient-text">지금 바로 절감하세요.</span>
+            <span className="gradient-text mt-1 inline-block">지금 바로 절감하세요.</span>
           </h1>
 
           {/* Subheadline */}
