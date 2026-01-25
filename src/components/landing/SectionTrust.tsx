@@ -27,7 +27,7 @@ export function SectionTrust() {
       behavior: "smooth"
     });
   };
-  return <section className="section-padding bg-muted/30">
+  return <section className="section-padding bg-card/30">
       <div className="container-tight">
         <motion.div initial={{
         opacity: 0,
@@ -48,15 +48,15 @@ export function SectionTrust() {
           </p>
         </motion.div>
 
-        {/* Partner Logo Marquee - refined cards */}
+        {/* Partner Logo Marquee - dark theme cards */}
         <div className="relative overflow-hidden py-8 mb-10">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-muted/30 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-card/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-card/30 to-transparent z-10" />
           
           <div className="flex animate-marquee">
             {[...partners, ...partners].map((partner, index) => <div key={`${partner.name}-${index}`} className="flex-shrink-0 mx-3 md:mx-4">
-                <div className="h-14 md:h-16 min-w-[140px] md:min-w-[160px] flex items-center justify-center px-4 py-3 bg-card rounded-2xl border border-border/40 shadow-soft">
-                  <img src={partner.logo} alt={partner.name} className="h-8 md:h-10 max-w-[100px] md:max-w-[120px] object-contain" />
+                <div className="h-14 md:h-16 min-w-[140px] md:min-w-[160px] flex items-center justify-center px-4 py-3 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/40 shadow-soft">
+                  <img src={partner.logo} alt={partner.name} className="h-8 md:h-10 max-w-[100px] md:max-w-[120px] object-contain brightness-0 invert opacity-80" />
                 </div>
               </div>)}
           </div>

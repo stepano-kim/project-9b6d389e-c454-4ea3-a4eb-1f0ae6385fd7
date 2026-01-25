@@ -34,11 +34,11 @@ export function HeroEmailCTA({
     });
   };
   return <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
-      {/* Clean gradient background - slabscan inspired */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/50 via-background to-background" />
+      {/* Dark gradient background - slabscan inspired */}
+      <div className="absolute inset-0 bg-gradient-to-b from-accent/30 via-background to-background" />
       
-      {/* Subtle decorative elements */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/[0.02] rounded-full blur-[100px]" />
+      {/* Subtle blue glow in center */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-primary/[0.08] rounded-full blur-[120px]" />
 
       <div className="relative container-tight pt-28 pb-20 md:pt-36 md:pb-28">
         <motion.div initial={{
@@ -65,8 +65,8 @@ export function HeroEmailCTA({
             NX의 고객들은 이미 연 평균 <strong className="text-foreground font-semibold">17%</strong>의 전기료를 절감하고 있습니다.
           </p>
 
-          {/* Email CTA Form - Premium card with refined shadow */}
-          <div className="max-w-md mx-auto bg-card rounded-2xl border border-border/60 shadow-card p-5 md:p-6 mb-4">
+          {/* Email CTA Form - Premium dark card */}
+          <div className="max-w-md mx-auto bg-card/80 backdrop-blur-sm rounded-2xl border border-border/60 shadow-card p-5 md:p-6 mb-4">
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
                 <label htmlFor="hero-email" className="sr-only">
@@ -75,7 +75,7 @@ export function HeroEmailCTA({
                 <Input id="hero-email" type="email" placeholder="업무용 이메일을 입력하세요" value={email} onChange={e => {
                 setEmail(e.target.value);
                 if (error) setError("");
-              }} className="h-12 text-base bg-muted/50 border-border/60 rounded-xl focus:bg-background transition-colors" aria-describedby={error ? "hero-email-error" : undefined} />
+              }} className="h-12 text-base bg-background/50 border-border/60 rounded-xl focus:bg-background/80 transition-colors" aria-describedby={error ? "hero-email-error" : undefined} />
                 {error && <p id="hero-email-error" className="text-sm text-destructive mt-2 text-left">
                     {error}
                   </p>}
