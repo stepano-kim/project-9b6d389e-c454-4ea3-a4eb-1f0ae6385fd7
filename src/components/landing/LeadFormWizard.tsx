@@ -347,7 +347,7 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
           빠른 상담을 원하시면 1800-0000으로 전화주세요.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button onClick={scrollToTop} variant="outline" className="gap-2">
+          <Button onClick={() => { resetForm(); scrollToTop(); }} variant="outline" className="gap-2">
             홈으로
           </Button>
           {!formData.enterConnected && (
