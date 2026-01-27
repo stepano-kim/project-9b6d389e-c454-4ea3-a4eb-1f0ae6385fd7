@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StickyHeader } from "@/components/landing/StickyHeader";
 import { HeroEmailCTA } from "@/components/landing/HeroEmailCTA";
 import { SectionAchievements } from "@/components/landing/SectionAchievements";
+import { SectionCaseStudies } from "@/components/landing/SectionCaseStudies";
 import { SectionTrust } from "@/components/landing/SectionTrust";
 import { SectionProcess } from "@/components/landing/SectionProcess";
 import { SectionFAQ } from "@/components/landing/SectionFAQ";
@@ -21,6 +22,7 @@ const Index = () => {
       <main>
         <HeroEmailCTA onEmailSubmit={handleHeroEmailSubmit} />
         <SectionAchievements />
+        <SectionCaseStudies />
         <SectionTrust />
         <SectionProcess />
         <SectionFAQ />

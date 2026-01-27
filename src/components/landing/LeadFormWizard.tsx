@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { z } from "zod";
 import { EnterConnectModal, KepcoDataSummary } from "./EnterConnectModal";
+import { FacilitiesStatusSection, FacilitiesStatus } from "./FacilitiesStatusSection";
 
 // Validation schemas
 const step1Schema = z.object({
@@ -41,9 +42,21 @@ const step1Schema = z.object({
 
 const step3Schema = z.object({
   assetType: z.string().min(1, { message: "관리 자산 유형을 선택해주세요" }),
-  buildingCount: z.number().min(1, { message: "빌딩/시설 수를 입력해주세요" }),
-  constructionYear: z.string().regex(/^[0-9]{4}$/, { message: "준공연도 4자리를 입력해주세요" }),
+  buildingCount: z.number().min(0, { message: "0 이상의 숫자만 입력할 수 있어요." }),
+  constructionYear: z.string().regex(/^[0-9]{4}$/, { message: "준공연도는 올바른 연도를 입력해주세요." }).refine(
+    (val) => parseInt(val) >= 1900,
+    { message: "준공연도는 올바른 연도를 입력해주세요." }
+  ),
   totalFloorArea: z.number().min(1, { message: "연면적을 입력해주세요" }),
+  floors: z.string().refine(
+    (val) => {
+      if (!val) return true;
+      const numMatch = val.match(/^(\d+)$/);
+      if (numMatch) return parseInt(numMatch[1]) >= 0;
+      return true;
+    },
+    { message: "0 이상의 숫자만 입력할 수 있어요." }
+  ),
 });
 
 const step4Schema = z.object({
@@ -67,13 +80,12 @@ interface FormData {
   constructionYear: string;
   totalFloorArea: number;
   floors: string;
-  buildings: string;
   // Step 4: Energy/Contract + Equipment
   annualElectricityCost: string;
   contractedPower: string;
   tariffType: string;
   peakManagement: string;
-  equipmentCategories: string[];
+  facilitiesStatus: FacilitiesStatus;
   // Conditional fields
   shiftOperation: string;
   compressorCount: string;
@@ -117,16 +129,13 @@ const electricityCostRanges = [
   { value: "50+", label: "50억 이상" },
 ];
 
-const equipmentOptions = [
-  { value: "hvac", label: "공조(HVAC)" },
-  { value: "refrigeration", label: "냉동/냉장" },
-  { value: "boiler", label: "보일러/스팀" },
-  { value: "compressed_air", label: "압축공기" },
-  { value: "pump_fan", label: "펌프/팬" },
-  { value: "production", label: "생산설비" },
-  { value: "lighting", label: "조명" },
-  { value: "other", label: "기타" },
-];
+const initialFacilitiesStatus: FacilitiesStatus = {
+  lighting: { ledRate: "" },
+  cooling: { options: [], otherText: "" },
+  heating: { options: [], otherText: "" },
+  solar: { hasSolar: false, capacity: "", usageType: "" },
+  other: { options: [], productionText: "" },
+};
 
 export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -146,18 +155,17 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
     enterConnected: false,
     // Step 3
     assetType: "",
-    buildingCount: 1,
+    buildingCount: 0,
     address: "",
     constructionYear: "",
     totalFloorArea: 0,
     floors: "",
-    buildings: "",
     // Step 4
     annualElectricityCost: "",
     contractedPower: "",
     tariffType: "",
     peakManagement: "",
-    equipmentCategories: [],
+    facilitiesStatus: initialFacilitiesStatus,
     // Conditional
     shiftOperation: "",
     compressorCount: "",
@@ -179,7 +187,7 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
     }
   }, [prefilledEmail]);
 
-  const updateField = (field: keyof FormData, value: string | boolean | number | string[]) => {
+  const updateField = (field: keyof FormData, value: string | boolean | number | string[] | FacilitiesStatus) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => {
@@ -190,12 +198,32 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
     }
   };
 
-  const toggleEquipment = (value: string) => {
-    const current = formData.equipmentCategories;
-    const updated = current.includes(value)
-      ? current.filter((v) => v !== value)
-      : [...current, value];
-    updateField("equipmentCategories", updated);
+  // Handle numeric input to prevent negative values
+  const handleNumericInput = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: keyof FormData,
+    min: number = 0
+  ) => {
+    const value = e.target.value;
+    // Remove any non-numeric characters except for empty string
+    const numericValue = value.replace(/[^0-9]/g, "");
+    const parsed = numericValue === "" ? 0 : parseInt(numericValue);
+    updateField(field, Math.max(min, parsed));
+  };
+
+  // Prevent typing minus sign
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "-" || e.key === "e" || e.key === "E") {
+      e.preventDefault();
+    }
+  };
+
+  // Prevent pasting negative values
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, min: number = 0) => {
+    const pastedText = e.clipboardData.getData("text");
+    if (pastedText.includes("-") || parseInt(pastedText) < min) {
+      e.preventDefault();
+    }
   };
 
   const validateStep = (step: number): boolean => {
@@ -226,6 +254,7 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
         buildingCount: formData.buildingCount,
         constructionYear: formData.constructionYear,
         totalFloorArea: formData.totalFloorArea,
+        floors: formData.floors,
       });
       if (!result.success) {
         result.error.errors.forEach((err) => {
@@ -243,6 +272,18 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
         result.error.errors.forEach((err) => {
           if (err.path[0]) newErrors[err.path[0] as string] = err.message;
         });
+      }
+
+      // Validate conditional facility inputs
+      const fs = formData.facilitiesStatus;
+      if (fs.cooling.options.includes("other") && !fs.cooling.otherText.trim()) {
+        newErrors.coolingOther = "기타 냉방 설비를 입력해주세요.";
+      }
+      if (fs.heating.options.includes("other") && !fs.heating.otherText.trim()) {
+        newErrors.heatingOther = "기타 난방 설비를 입력해주세요.";
+      }
+      if (fs.other.options.includes("production") && !fs.other.productionText.trim()) {
+        newErrors.productionOther = "생산 설비 내용을 입력해주세요.";
       }
     }
 
@@ -298,17 +339,16 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
       email: "",
       enterConnected: false,
       assetType: "",
-      buildingCount: 1,
+      buildingCount: 0,
       address: "",
       constructionYear: "",
       totalFloorArea: 0,
       floors: "",
-      buildings: "",
       annualElectricityCost: "",
       contractedPower: "",
       tariffType: "",
       peakManagement: "",
-      equipmentCategories: [],
+      facilitiesStatus: initialFacilitiesStatus,
       shiftOperation: "",
       compressorCount: "",
       compressorCapacity: "",
@@ -326,9 +366,6 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
 
   // Check if conditional fields should show
   const isFactory = formData.assetType === "factory";
-  const hasCompressedAir = formData.equipmentCategories.includes("compressed_air");
-  const isHvacBuilding = ["commercial", "hospital", "campus"].includes(formData.assetType) && 
-    formData.equipmentCategories.includes("hvac");
 
   if (isSubmitted) {
     return (
@@ -613,11 +650,13 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
                   <Label htmlFor="buildingCount">빌딩/시설 수 *</Label>
                   <Input
                     id="buildingCount"
-                    type="number"
-                    min={1}
-                    value={formData.buildingCount}
-                    onChange={(e) => updateField("buildingCount", parseInt(e.target.value) || 1)}
-                    className="mt-1.5"
+                    type="text"
+                    inputMode="numeric"
+                    value={formData.buildingCount || ""}
+                    onChange={(e) => handleNumericInput(e, "buildingCount", 0)}
+                    onKeyDown={handleKeyDown}
+                    onPaste={(e) => handlePaste(e, 0)}
+                    className="mt-1.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   {errors.buildingCount && (
                     <p className="text-sm text-destructive mt-1">{errors.buildingCount}</p>
@@ -641,10 +680,16 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
                   <Label htmlFor="constructionYear">준공연도 *</Label>
                   <Input
                     id="constructionYear"
+                    type="text"
+                    inputMode="numeric"
                     placeholder="2015"
                     maxLength={4}
                     value={formData.constructionYear}
-                    onChange={(e) => updateField("constructionYear", e.target.value.replace(/\D/g, ""))}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9]/g, "");
+                      updateField("constructionYear", value);
+                    }}
+                    onKeyDown={handleKeyDown}
                     className="mt-1.5"
                   />
                   {errors.constructionYear && (
@@ -656,11 +701,14 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
                   <Label htmlFor="totalFloorArea">연면적 (m²) *</Label>
                   <Input
                     id="totalFloorArea"
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     placeholder="50000"
                     value={formData.totalFloorArea || ""}
-                    onChange={(e) => updateField("totalFloorArea", parseInt(e.target.value) || 0)}
-                    className="mt-1.5"
+                    onChange={(e) => handleNumericInput(e, "totalFloorArea", 0)}
+                    onKeyDown={handleKeyDown}
+                    onPaste={(e) => handlePaste(e, 0)}
+                    className="mt-1.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   {errors.totalFloorArea && (
                     <p className="text-sm text-destructive mt-1">{errors.totalFloorArea}</p>
@@ -668,29 +716,18 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="floors">층수</Label>
-                  <Input
-                    id="floors"
-                    placeholder="B3~25F"
-                    value={formData.floors}
-                    onChange={(e) => updateField("floors", e.target.value)}
-                    className="mt-1.5"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="buildings">동수</Label>
-                  <Input
-                    id="buildings"
-                    type="number"
-                    placeholder="1"
-                    value={formData.buildings}
-                    onChange={(e) => updateField("buildings", e.target.value)}
-                    className="mt-1.5"
-                  />
-                </div>
+              <div>
+                <Label htmlFor="floors">층수</Label>
+                <Input
+                  id="floors"
+                  placeholder="B3~25F"
+                  value={formData.floors}
+                  onChange={(e) => updateField("floors", e.target.value)}
+                  className="mt-1.5"
+                />
+                {errors.floors && (
+                  <p className="text-sm text-destructive mt-1">{errors.floors}</p>
+                )}
               </div>
             </motion.div>
           )}
@@ -734,136 +771,36 @@ export function LeadFormWizard({ prefilledEmail = "" }: LeadFormWizardProps) {
                 </div>
               )}
 
-              {/* Equipment Section */}
+              {/* Facilities Status Section */}
               <div className="space-y-4 pt-4 border-t border-border">
-                <h4 className="text-sm font-medium text-muted-foreground">주요 설비/운영 정보</h4>
-                
-                <div>
-                  <Label>주요 설비 카테고리 (1개 이상 권장)</Label>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {equipmentOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        type="button"
-                        onClick={() => toggleEquipment(option.value)}
-                        className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
-                          formData.equipmentCategories.includes(option.value)
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-foreground border-border hover:border-primary/50"
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Conditional: Factory shift operation */}
-                {isFactory && (
-                  <div>
-                    <Label htmlFor="shiftOperation">교대 운영 여부</Label>
-                    <Select
-                      value={formData.shiftOperation}
-                      onValueChange={(value) => updateField("shiftOperation", value)}
-                    >
-                      <SelectTrigger id="shiftOperation" className="mt-1.5">
-                        <SelectValue placeholder="선택" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2shift">2교대</SelectItem>
-                        <SelectItem value="3shift">3교대</SelectItem>
-                        <SelectItem value="always">상시</SelectItem>
-                        <SelectItem value="other">기타</SelectItem>
-                        <SelectItem value="unknown">모름</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-
-                {/* Conditional: Compressed air */}
-                {hasCompressedAir && (
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="compressorCount">압축기 대수</Label>
-                      <Input
-                        id="compressorCount"
-                        placeholder="예: 3대"
-                        value={formData.compressorCount}
-                        onChange={(e) => updateField("compressorCount", e.target.value)}
-                        className="mt-1.5"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="compressorCapacity">총 용량</Label>
-                      <Input
-                        id="compressorCapacity"
-                        placeholder="예: 150kW (모름)"
-                        value={formData.compressorCapacity}
-                        onChange={(e) => updateField("compressorCapacity", e.target.value)}
-                        className="mt-1.5"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Conditional: HVAC building */}
-                {isHvacBuilding && (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="chillerType">냉온수기 유형</Label>
-                        <Select
-                          value={formData.chillerType}
-                          onValueChange={(value) => updateField("chillerType", value)}
-                        >
-                          <SelectTrigger id="chillerType" className="mt-1.5">
-                            <SelectValue placeholder="선택" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="electric">전기식</SelectItem>
-                            <SelectItem value="absorption">흡수식</SelectItem>
-                            <SelectItem value="other">기타</SelectItem>
-                            <SelectItem value="unknown">모름</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label htmlFor="hasBems">BAS/BEMS 보유 여부</Label>
-                        <Select
-                          value={formData.hasBems}
-                          onValueChange={(value) => updateField("hasBems", value)}
-                        >
-                          <SelectTrigger id="hasBems" className="mt-1.5">
-                            <SelectValue placeholder="선택" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="yes">있음</SelectItem>
-                            <SelectItem value="no">없음</SelectItem>
-                            <SelectItem value="unknown">모름</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div>
-                      <Label htmlFor="nightWeekendOperation">야간/주말 운영 패턴</Label>
-                      <Select
-                        value={formData.nightWeekendOperation}
-                        onValueChange={(value) => updateField("nightWeekendOperation", value)}
-                      >
-                        <SelectTrigger id="nightWeekendOperation" className="mt-1.5">
-                          <SelectValue placeholder="선택" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="always">상시</SelectItem>
-                          <SelectItem value="partial">일부</SelectItem>
-                          <SelectItem value="rare">거의 없음</SelectItem>
-                          <SelectItem value="unknown">모름</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </>
-                )}
+                <FacilitiesStatusSection
+                  value={formData.facilitiesStatus}
+                  onChange={(value) => updateField("facilitiesStatus", value)}
+                  errors={errors}
+                />
               </div>
+
+              {/* Conditional: Factory shift operation */}
+              {isFactory && (
+                <div className="pt-4 border-t border-border">
+                  <Label htmlFor="shiftOperation">교대 운영 여부</Label>
+                  <Select
+                    value={formData.shiftOperation}
+                    onValueChange={(value) => updateField("shiftOperation", value)}
+                  >
+                    <SelectTrigger id="shiftOperation" className="mt-1.5">
+                      <SelectValue placeholder="선택" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="2shift">2교대</SelectItem>
+                      <SelectItem value="3shift">3교대</SelectItem>
+                      <SelectItem value="always">상시</SelectItem>
+                      <SelectItem value="other">기타</SelectItem>
+                      <SelectItem value="unknown">모름</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               {/* Consent Block */}
               <div className="space-y-4 pt-4 border-t border-border">
@@ -998,7 +935,7 @@ function EnergyContractFields({
   errors,
 }: {
   formData: FormData;
-  updateField: (field: keyof FormData, value: string | boolean | number | string[]) => void;
+  updateField: (field: keyof FormData, value: string | boolean | number | string[] | FacilitiesStatus) => void;
   errors: Record<string, string>;
 }) {
   return (
