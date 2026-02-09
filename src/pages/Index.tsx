@@ -1,32 +1,23 @@
-import { useState } from "react";
 import { StickyHeader } from "@/components/landing/StickyHeader";
-import { HeroEmailCTA } from "@/components/landing/HeroEmailCTA";
-import { SectionAchievements } from "@/components/landing/SectionAchievements";
-import { SectionCaseStudies } from "@/components/landing/SectionCaseStudies";
-import { SectionTrust } from "@/components/landing/SectionTrust";
-import { SectionProcess } from "@/components/landing/SectionProcess";
-import { SectionFAQ } from "@/components/landing/SectionFAQ";
-import { LeadFormSection } from "@/components/landing/LeadFormSection";
+import { HeroSection } from "@/components/landing/HeroSection";
+import { SectionProcessOverview } from "@/components/landing/SectionProcessOverview";
+import { SectionDeploymentCases } from "@/components/landing/SectionDeploymentCases";
+import { SectionOperationScale } from "@/components/landing/SectionOperationScale";
+import { SectionIntroductionProcess } from "@/components/landing/SectionIntroductionProcess";
+import { SectionLeadForm } from "@/components/landing/SectionLeadForm";
 import { Footer } from "@/components/landing/Footer";
 
 const Index = () => {
-  const [prefilledEmail, setPrefilledEmail] = useState("");
-
-  const handleHeroEmailSubmit = (email: string) => {
-    setPrefilledEmail(email);
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <StickyHeader />
       <main>
-        <HeroEmailCTA onEmailSubmit={handleHeroEmailSubmit} />
-        <SectionAchievements />
-        <SectionCaseStudies />
-        <SectionTrust />
-        <SectionProcess />
-        <SectionFAQ />
-        <LeadFormSection prefilledEmail={prefilledEmail} />
+        <HeroSection />
+        <SectionProcessOverview />
+        <SectionDeploymentCases />
+        <SectionOperationScale />
+        <SectionIntroductionProcess />
+        <SectionLeadForm />
       </main>
       <Footer />
     </div>
