@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import partnerKepco from "@/assets/partners/partner-kepco.svg";
 import partnerKoreawest from "@/assets/partners/partner-koreawest.svg";
@@ -72,10 +73,10 @@ export function SectionTrust() {
       }} viewport={{
         once: true
       }} className="text-center">
-          <button onClick={scrollToForm} className="text-sm text-primary hover:text-primary-hover transition-colors font-medium inline-flex items-center gap-1.5">
-            상담 신청하기
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          <Button onClick={scrollToForm} size="lg" className="gap-2">
+            에너지 최적화 시작하기
+            <ArrowRight className="w-4 h-4" />
+          </Button>
           
         </motion.div>
       </div>
