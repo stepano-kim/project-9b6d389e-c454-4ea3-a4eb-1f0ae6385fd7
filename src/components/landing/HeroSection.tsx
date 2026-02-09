@@ -34,7 +34,7 @@ export function HeroSection() {
         >
           {/* Headline */}
           <h1 className="text-[2.5rem] leading-[1.3] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">
-            에너지 비용, 이번에도
+            에너지 비용, 올해도
             <br />
             <span className="text-white mt-1 inline-block">작년보다 더 내고 계신가요?</span>
           </h1>
