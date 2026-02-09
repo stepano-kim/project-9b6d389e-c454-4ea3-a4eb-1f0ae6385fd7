@@ -28,20 +28,66 @@ export function SectionKeyBenefits() {
   return (
     <section className="section-padding bg-background">
       <div className="container-tight">
-        {/* Section Label */}
+        {/* Premium Quote Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative mb-12 md:mb-16 py-10 md:py-14 px-6 md:px-10 rounded-2xl overflow-hidden"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-3">
-            부담 없이 시작해서, 지속 가능한 성과까지
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground">
-            에너지 관리 혁신, NX는 이렇게 다릅니다
-          </p>
+          {/* Dark background */}
+          <div className="absolute inset-0 bg-[hsl(222,30%,8%)] rounded-2xl" />
+          
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(217,91%,50%,0.08)] via-transparent to-[hsl(217,91%,50%,0.05)]" />
+          
+          <div className="relative z-10 text-center">
+            {/* Main glowing headline */}
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide mb-4"
+              style={{
+                color: "hsl(217, 100%, 65%)",
+                textShadow: `
+                  0 0 20px hsl(217, 100%, 60%, 0.5),
+                  0 0 40px hsl(217, 100%, 55%, 0.3),
+                  0 0 60px hsl(217, 100%, 50%, 0.15)
+                `,
+              }}
+            >
+              <motion.span
+                animate={{
+                  textShadow: [
+                    "0 0 20px hsl(217, 100%, 60%, 0.5), 0 0 40px hsl(217, 100%, 55%, 0.3), 0 0 60px hsl(217, 100%, 50%, 0.15)",
+                    "0 0 25px hsl(217, 100%, 60%, 0.6), 0 0 50px hsl(217, 100%, 55%, 0.4), 0 0 70px hsl(217, 100%, 50%, 0.2)",
+                    "0 0 20px hsl(217, 100%, 60%, 0.5), 0 0 40px hsl(217, 100%, 55%, 0.3), 0 0 60px hsl(217, 100%, 50%, 0.15)",
+                  ],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                "부담 없이 시작해서, 지속 가능한 성과까지"
+              </motion.span>
+            </motion.h2>
+            
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-sm md:text-base text-[hsl(220,10%,55%)] tracking-wide"
+            >
+              에너지 관리 혁신, NX는 이렇게 다릅니다
+            </motion.p>
+          </div>
         </motion.div>
 
         {/* Cards Grid */}
