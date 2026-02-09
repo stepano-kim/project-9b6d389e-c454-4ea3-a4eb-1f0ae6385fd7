@@ -36,9 +36,12 @@ export function SectionKeyBenefits() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-3">
             부담 없이 시작해서, 지속 가능한 성과까지
           </h2>
+          <p className="text-base md:text-lg text-muted-foreground">
+            에너지 관리 혁신, NX는 이렇게 다릅니다
+          </p>
         </motion.div>
 
         {/* Cards Grid */}
