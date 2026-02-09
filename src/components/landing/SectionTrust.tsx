@@ -45,8 +45,8 @@ export function SectionTrust() {
             믿을 수 있는 에너지 공기업의 No.1 파트너
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto text-balance leading-relaxed">
-            에너지 운영 최적화·절감·신재생 도입·노후 설비 교체까지, 
-공공/민간 현장에서 검증된 방식으로 지원합니다.
+            에너지 운영 최적화·절감·신재생 도입·노후 설비 교체까지,<br />
+            공공/민간 현장에서 검증된 방식으로 지원합니다.
           </p>
         </motion.div>
 
