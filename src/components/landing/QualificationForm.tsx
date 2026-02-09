@@ -15,10 +15,11 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import { z } from "zod";
 
 const formSchema = z.object({
-  name: z.string().min(1, { message: "이름을 입력해주세요" }),
-  email: z.string().email({ message: "올바른 이메일 형식을 입력해주세요" }),
+  name: z.string().trim().min(1, { message: "이름을 입력해주세요" }).max(100),
+  email: z.string().trim().email({ message: "올바른 이메일 형식을 입력해주세요" }).max(255),
   phone: z.string().min(10, { message: "올바른 연락처를 입력해주세요" }),
   buildingCount: z.string().min(1, { message: "건물 수를 입력해주세요" }),
+  usageType: z.string().min(1, { message: "사용 용도를 선택해주세요" }),
   annualEnergyCost: z.string().min(1, { message: "연간 에너지 비용을 선택해주세요" }),
   consent: z.literal(true, { errorMap: () => ({ message: "동의가 필요합니다" }) }),
 });
@@ -73,6 +74,7 @@ export function QualificationForm() {
       email: formData.email,
       phone: formData.phone.replace(/-/g, ""),
       buildingCount: formData.buildingCount,
+      usageType: formData.usageType,
       annualEnergyCost: formData.annualEnergyCost,
       consent: formData.consent,
     });
@@ -134,6 +136,11 @@ export function QualificationForm() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
+      {/* Reassurance line */}
+      <p className="text-center text-muted-foreground text-sm">
+        정보를 모두 입력해주시면, 확인 후 회신드리겠습니다.
+      </p>
+
       {/* Basic Information */}
       <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
         <h3 className="text-lg font-semibold text-foreground mb-6">기본 정보</h3>
@@ -261,13 +268,13 @@ export function QualificationForm() {
           </div>
 
           <div>
-            <Label htmlFor="usageType">사용 용도</Label>
+            <Label htmlFor="usageType">사용 용도 *</Label>
             <Select
               value={formData.usageType}
               onValueChange={(value) => updateField("usageType", value)}
             >
               <SelectTrigger id="usageType" className="mt-1.5">
-                <SelectValue placeholder="선택 (선택사항)" />
+                <SelectValue placeholder="선택하세요" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="office">오피스</SelectItem>
@@ -277,6 +284,8 @@ export function QualificationForm() {
                 <SelectItem value="other">기타</SelectItem>
               </SelectContent>
             </Select>
+            <p className="text-xs text-muted-foreground mt-1">주 사용 용도를 선택해주세요.</p>
+            {errors.usageType && <p className="text-sm text-destructive mt-1">{errors.usageType}</p>}
           </div>
 
           <div>
@@ -323,10 +332,15 @@ export function QualificationForm() {
       </div>
 
       {/* Submit */}
-      <Button type="submit" size="lg" className="w-full gap-2">
-        우리 건물 기준으로 확인하기
-        <ArrowRight className="w-4 h-4" />
-      </Button>
+      <div className="space-y-3">
+        <Button type="submit" size="lg" className="w-full gap-2">
+          에너지 최적화 조회하기
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+        <p className="text-xs text-muted-foreground text-center">
+          제출 후, 입력하신 정보를 바탕으로 검토하여 회신드리겠습니다.
+        </p>
+      </div>
     </form>
   );
 }
