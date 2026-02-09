@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import partnerKepco from "@/assets/partners/partner-kepco.svg";
 import partnerKoreawest from "@/assets/partners/partner-koreawest.svg";
 import partnerKomipo from "@/assets/partners/partner-komipo.svg";
 import partnerKepcoEs from "@/assets/partners/partner-kepco-es.png";
 import partnerMcc from "@/assets/partners/partner-mcc.svg";
-
 const partners = [{
   name: "한국전력공사",
   logo: partnerKepco
@@ -21,14 +21,12 @@ const partners = [{
   name: "MCC",
   logo: partnerMcc
 }];
-
 export function SectionTrust() {
   const scrollToForm = () => {
     document.getElementById("lead-form")?.scrollIntoView({
       behavior: "smooth"
     });
   };
-  
   return <section className="section-padding bg-card/30">
       <div className="container-tight">
         <motion.div initial={{
@@ -64,7 +62,7 @@ export function SectionTrust() {
           </div>
         </div>
 
-        {/* CTA Button - same style as Hero */}
+        {/* CTA as text link - secondary placement */}
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -74,14 +72,11 @@ export function SectionTrust() {
       }} viewport={{
         once: true
       }} className="text-center">
-          <button 
-            onClick={scrollToForm} 
-            className="cta-gradient-border relative px-8 py-4 rounded-full font-semibold text-base md:text-lg transition-all duration-300 hover:scale-[1.02]"
-          >
-            <span className="relative z-10 bg-white px-8 py-4 rounded-full block text-foreground">
-              에너지 최적화 시작하기
-            </span>
+          <button onClick={scrollToForm} className="text-sm text-primary hover:text-primary-hover transition-colors font-medium inline-flex items-center gap-1.5">
+            상담 신청하기
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
+          
         </motion.div>
       </div>
     </section>;
