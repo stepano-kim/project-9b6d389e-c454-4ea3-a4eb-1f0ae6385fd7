@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroVideo from "@/assets/hero-energy-flow.mp4";
 
@@ -44,20 +43,49 @@ export function HeroSection() {
             NX의 고객들은 구축 비용 없이 전기료를 절감하고, 에너지를 관리하고 있습니다.
           </p>
 
-          {/* Primary CTA with helper text */}
+          {/* Primary CTA with animated gradient border */}
           <div className="flex flex-col items-center justify-center gap-4">
-            <Button 
+            <button 
               onClick={scrollToForm} 
-              size="lg" 
-              className="gap-2 group bg-white text-slate-900 hover:bg-gray-100 hover:shadow-lg font-semibold"
+              className="group relative px-8 py-4 rounded-full font-semibold text-slate-900 bg-white overflow-hidden transition-shadow hover:shadow-xl"
             >
-              에너지 최적화 시작해보기
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+              {/* Animated gradient border */}
+              <span className="absolute inset-0 rounded-full p-[2px] overflow-hidden">
+                <span 
+                  className="absolute inset-[-100%] animate-spin-slow"
+                  style={{
+                    background: 'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #06b6d4, #10b981, #3b82f6)',
+                    animationDuration: '3s',
+                  }}
+                />
+              </span>
+              {/* Inner background */}
+              <span className="absolute inset-[2px] rounded-full bg-white" />
+              {/* Button content */}
+              <span className="relative flex items-center gap-2">
+                에너지 최적화 시작해보기
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </button>
             <span className="text-white text-sm font-medium">1분이면 완료. 무료 상담</span>
           </div>
         </motion.div>
       </div>
+
+      {/* CSS for spin animation */}
+      <style>{`
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 3s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
