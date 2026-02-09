@@ -48,10 +48,12 @@ export function HeroSection() {
           <div className="flex flex-col items-center justify-center gap-4">
             <button 
               onClick={scrollToForm} 
-              className="cta-gradient-border h-13 px-8 py-3.5 text-base font-semibold inline-flex items-center justify-center gap-2 group bg-white text-slate-900 hover:shadow-lg transition-shadow rounded-xl"
+              className="cta-gradient-border text-base font-semibold group transition-shadow"
             >
-              에너지 최적화 시작하기
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <span className="text-slate-900">
+                에너지 최적화 시작하기
+                <ArrowRight className="w-4 h-4 inline-block ml-2 transition-transform group-hover:translate-x-1" />
+              </span>
             </button>
             <span className="text-white text-sm font-medium">1분이면 완료. 무료 상담</span>
           </div>
