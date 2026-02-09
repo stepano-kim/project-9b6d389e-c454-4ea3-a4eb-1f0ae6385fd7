@@ -46,14 +46,13 @@ export function HeroSection() {
 
           {/* Primary CTA with helper text */}
           <div className="flex flex-col items-center justify-center gap-4">
-            <Button 
+            <button 
               onClick={scrollToForm} 
-              size="lg" 
-              className="gap-2 group bg-white text-slate-900 hover:bg-gray-100 hover:shadow-lg font-semibold"
+              className="cta-gradient-border h-13 px-8 py-3.5 text-base font-semibold inline-flex items-center justify-center gap-2 group text-slate-900 hover:shadow-lg transition-shadow"
             >
-              에너지 최적화 시작해보기
+              에너지 최적화 시작하기
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+            </button>
             <span className="text-white text-sm font-medium">1분이면 완료. 무료 상담</span>
           </div>
         </motion.div>
