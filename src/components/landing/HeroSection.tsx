@@ -45,7 +45,7 @@ export function HeroSection() {
           </p>
 
           {/* Primary CTA with helper text */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4">
             <Button 
               onClick={scrollToForm} 
               size="lg" 
@@ -54,7 +54,7 @@ export function HeroSection() {
               에너지 최적화 시작해보기
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <span className="text-white text-sm font-medium">1분이면 완료</span>
+            <span className="text-white text-sm font-medium">1분이면 완료. 무료 상담</span>
           </div>
         </motion.div>
       </div>
