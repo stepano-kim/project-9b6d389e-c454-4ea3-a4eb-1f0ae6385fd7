@@ -37,7 +37,7 @@ export function SectionKeyBenefits() {
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
-            에너지 최적화, 핵심은 이 3가지입니다
+            부담 없이 시작해서, 지속 가능한 성과까지
           </h2>
         </motion.div>
 
