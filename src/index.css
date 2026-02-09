@@ -146,17 +146,32 @@
   .cta-gradient-border {
     position: relative;
     z-index: 1;
-    isolation: isolate;
-    background: white !important;
+    background: transparent;
+  }
+
+  /* White inner fill - covers the gradient leaving only border visible */
+  .cta-gradient-border > span {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: calc(1rem - 3px);
+    padding: 0.875rem 2rem;
   }
 
   /* Gradient border layer */
   .cta-gradient-border::before {
     content: '';
     position: absolute;
-    inset: -3px;
-    z-index: -2;
+    inset: 0;
+    z-index: 1;
     border-radius: 1rem;
+    padding: 3px;
     background: conic-gradient(
       from var(--gradient-angle, 0deg),
       hsl(217 91% 40%),
@@ -165,6 +180,11 @@
       hsl(200 85% 50%),
       hsl(217 91% 40%)
     );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     animation: rotate-gradient 3s linear infinite;
   }
 
@@ -172,9 +192,9 @@
   .cta-gradient-border::after {
     content: '';
     position: absolute;
-    inset: -3px;
-    z-index: -3;
-    border-radius: 1rem;
+    inset: -4px;
+    z-index: 0;
+    border-radius: 1.25rem;
     background: conic-gradient(
       from var(--gradient-angle, 0deg),
       hsl(217 91% 40%),
@@ -185,12 +205,12 @@
     );
     animation: rotate-gradient 3s linear infinite;
     filter: blur(12px);
-    opacity: 0.4;
+    opacity: 0.35;
     transition: opacity 0.3s ease;
   }
 
   .cta-gradient-border:hover::after {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   @property --gradient-angle {
