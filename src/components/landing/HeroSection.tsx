@@ -34,9 +34,9 @@ export function HeroSection() {
         >
           {/* Headline */}
           <h1 className="text-[2.5rem] leading-[1.3] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">
-            에너지 비용은 매년 오르는데,
+            에너지 비용, 이번에도
             <br />
-            <span className="text-white mt-1 inline-block">어떻게 대응해야 할까요.</span>
+            <span className="text-white mt-1 inline-block">작년보다 더 내고 계신가요?</span>
           </h1>
 
           {/* Subheadline */}
