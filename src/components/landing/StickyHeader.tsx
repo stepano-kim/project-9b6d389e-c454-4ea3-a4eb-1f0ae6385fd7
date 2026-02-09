@@ -27,22 +27,25 @@ export function StickyHeader() {
       <div className="container-tight flex items-center justify-between h-16 md:h-18">
         {/* Logo */}
         <div className="flex flex-col">
-          <Logo variant="color" />
-          
+          <Logo variant={isScrolled ? "color" : "white"} />
         </div>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-5">
-          <span className="text-xs text-muted-foreground">
+          <span className={`text-xs transition-colors ${isScrolled ? "text-muted-foreground" : "text-white/80"}`}>
             1분이면 완료 · 무료 상담
           </span>
-          <Button onClick={scrollToForm} size="sm">
+          <Button 
+            onClick={scrollToForm} 
+            size="sm"
+            className={isScrolled ? "" : "bg-white text-slate-900 hover:bg-gray-100"}
+          >
             에너지 최적화 시작해보기
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 text-foreground hover:bg-accent rounded-lg transition-colors" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}>
+        <button className={`md:hidden p-2 rounded-lg transition-colors ${isScrolled ? "text-foreground hover:bg-accent" : "text-white hover:bg-white/10"}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}>
           {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
