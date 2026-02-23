@@ -18,9 +18,11 @@ const formSchema = z.object({
   name: z.string().trim().min(1, { message: "이름을 입력해주세요" }).max(100),
   email: z.string().trim().email({ message: "올바른 이메일 형식을 입력해주세요" }).max(255),
   phone: z.string().min(10, { message: "올바른 연락처를 입력해주세요" }),
-  buildingCount: z.string().min(1, { message: "건물 수를 입력해주세요" }),
-  usageType: z.string().min(1, { message: "사용 용도를 선택해주세요" }),
-  annualEnergyCost: z.string().min(1, { message: "연간 에너지 비용을 선택해주세요" }),
+  siteName: z.string().trim().min(1, { message: "사이트명을 입력해주세요" }),
+  region: z.string().trim().min(1, { message: "지역을 입력해주세요" }),
+  buildingType: z.string().min(1, { message: "건물 유형을 선택해주세요" }),
+  annualElectricityCost: z.string().trim().min(1, { message: "연평균 전기료를 입력해주세요" }),
+  totalFloorArea: z.string().trim().min(1, { message: "연면적을 입력해주세요" }),
   consent: z.literal(true, { errorMap: () => ({ message: "동의가 필요합니다" }) }),
 });
 
@@ -28,13 +30,11 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  buildingCount: string;
-  maxFloors: string;
-  floorsUnknown: boolean;
+  siteName: string;
+  region: string;
+  buildingType: string;
+  annualElectricityCost: string;
   totalFloorArea: string;
-  areaUnknown: boolean;
-  usageType: string;
-  annualEnergyCost: string;
   consent: boolean;
 }
 
@@ -45,13 +45,11 @@ export function QualificationForm() {
     name: "",
     email: "",
     phone: "",
-    buildingCount: "",
-    maxFloors: "",
-    floorsUnknown: false,
+    siteName: "",
+    region: "",
+    buildingType: "",
+    annualElectricityCost: "",
     totalFloorArea: "",
-    areaUnknown: false,
-    usageType: "",
-    annualEnergyCost: "",
     consent: false,
   });
 
@@ -73,9 +71,11 @@ export function QualificationForm() {
       name: formData.name,
       email: formData.email,
       phone: formData.phone.replace(/-/g, ""),
-      buildingCount: formData.buildingCount,
-      usageType: formData.usageType,
-      annualEnergyCost: formData.annualEnergyCost,
+      siteName: formData.siteName,
+      region: formData.region,
+      buildingType: formData.buildingType,
+      annualElectricityCost: formData.annualElectricityCost,
+      totalFloorArea: formData.totalFloorArea,
       consent: formData.consent,
     });
 
@@ -98,13 +98,11 @@ export function QualificationForm() {
       name: "",
       email: "",
       phone: "",
-      buildingCount: "",
-      maxFloors: "",
-      floorsUnknown: false,
+      siteName: "",
+      region: "",
+      buildingType: "",
+      annualElectricityCost: "",
       totalFloorArea: "",
-      areaUnknown: false,
-      usageType: "",
-      annualEnergyCost: "",
       consent: false,
     });
     setErrors({});
@@ -193,120 +191,72 @@ export function QualificationForm() {
         
         <div className="space-y-4">
           <div>
-            <Label htmlFor="buildingCount">운용 중인 건물 수 *</Label>
+            <Label htmlFor="siteName">사이트명 *</Label>
             <Input
-              id="buildingCount"
-              type="number"
-              min="1"
-              placeholder="예) 3"
-              value={formData.buildingCount}
-              onChange={(e) => updateField("buildingCount", e.target.value)}
+              id="siteName"
+              placeholder="예) OO빌딩, OO캠퍼스"
+              value={formData.siteName}
+              onChange={(e) => updateField("siteName", e.target.value)}
               className="mt-1.5"
             />
-            <p className="text-xs text-muted-foreground mt-1">현재 관리·운영 중인 전체 건물 수</p>
-            {errors.buildingCount && <p className="text-sm text-destructive mt-1">{errors.buildingCount}</p>}
+            <p className="text-xs text-muted-foreground mt-1">건물 또는 운영 사이트의 이름</p>
+            {errors.siteName && <p className="text-sm text-destructive mt-1">{errors.siteName}</p>}
           </div>
 
           <div>
-            <Label htmlFor="maxFloors">최고 층수</Label>
-            <div className="flex items-center gap-4 mt-1.5">
-              <Input
-                id="maxFloors"
-                type="number"
-                min="1"
-                placeholder="예) 25"
-                value={formData.maxFloors}
-                onChange={(e) => updateField("maxFloors", e.target.value)}
-                disabled={formData.floorsUnknown}
-                className="flex-1"
-              />
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="floorsUnknown"
-                  checked={formData.floorsUnknown}
-                  onCheckedChange={(checked) => {
-                    updateField("floorsUnknown", checked === true);
-                    if (checked) updateField("maxFloors", "");
-                  }}
-                />
-                <label htmlFor="floorsUnknown" className="text-sm text-muted-foreground cursor-pointer">
-                  모름
-                </label>
-              </div>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">여러 건물 중 가장 높은 층수 기준</p>
+            <Label htmlFor="region">지역 *</Label>
+            <Input
+              id="region"
+              placeholder="예) 서울시 강남구"
+              value={formData.region}
+              onChange={(e) => updateField("region", e.target.value)}
+              className="mt-1.5"
+            />
+            {errors.region && <p className="text-sm text-destructive mt-1">{errors.region}</p>}
           </div>
 
           <div>
-            <Label htmlFor="totalFloorArea">총 연면적 (㎡)</Label>
-            <div className="flex items-center gap-4 mt-1.5">
-              <Input
-                id="totalFloorArea"
-                type="number"
-                min="1"
-                placeholder="예) 120,000"
-                value={formData.totalFloorArea}
-                onChange={(e) => updateField("totalFloorArea", e.target.value)}
-                disabled={formData.areaUnknown}
-                className="flex-1"
-              />
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="areaUnknown"
-                  checked={formData.areaUnknown}
-                  onCheckedChange={(checked) => {
-                    updateField("areaUnknown", checked === true);
-                    if (checked) updateField("totalFloorArea", "");
-                  }}
-                />
-                <label htmlFor="areaUnknown" className="text-sm text-muted-foreground cursor-pointer">
-                  모름
-                </label>
-              </div>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">운용 중인 건물 전체 연면적의 합</p>
-          </div>
-
-          <div>
-            <Label htmlFor="usageType">사용 용도 *</Label>
+            <Label htmlFor="buildingType">건물 유형 *</Label>
             <Select
-              value={formData.usageType}
-              onValueChange={(value) => updateField("usageType", value)}
+              value={formData.buildingType}
+              onValueChange={(value) => updateField("buildingType", value)}
             >
-              <SelectTrigger id="usageType" className="mt-1.5">
+              <SelectTrigger id="buildingType" className="mt-1.5">
                 <SelectValue placeholder="선택하세요" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="office">오피스</SelectItem>
-                <SelectItem value="commercial">상업시설</SelectItem>
-                <SelectItem value="mixed">복합시설</SelectItem>
-                <SelectItem value="education">교육시설</SelectItem>
+                <SelectItem value="commercial">상업용 빌딩</SelectItem>
+                <SelectItem value="campus">대학 캠퍼스</SelectItem>
+                <SelectItem value="industrial">공장·산업시설</SelectItem>
                 <SelectItem value="other">기타</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground mt-1">주 사용 용도를 선택해주세요.</p>
-            {errors.usageType && <p className="text-sm text-destructive mt-1">{errors.usageType}</p>}
+            {errors.buildingType && <p className="text-sm text-destructive mt-1">{errors.buildingType}</p>}
           </div>
 
           <div>
-            <Label htmlFor="annualEnergyCost">연간 에너지 비용 *</Label>
-            <Select
-              value={formData.annualEnergyCost}
-              onValueChange={(value) => updateField("annualEnergyCost", value)}
-            >
-              <SelectTrigger id="annualEnergyCost" className="mt-1.5">
-                <SelectValue placeholder="선택하세요" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="under-10">10억 미만</SelectItem>
-                <SelectItem value="10-20">10억 ~ 20억</SelectItem>
-                <SelectItem value="20-50">20억 ~ 50억</SelectItem>
-                <SelectItem value="over-50">50억 이상</SelectItem>
-                <SelectItem value="unknown">모름</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground mt-1">전기·가스 등 전체 기준, 대략적인 수준이면 충분합니다.</p>
-            {errors.annualEnergyCost && <p className="text-sm text-destructive mt-1">{errors.annualEnergyCost}</p>}
+            <Label htmlFor="annualElectricityCost">연평균 전기료 *</Label>
+            <Input
+              id="annualElectricityCost"
+              placeholder="예) 5억"
+              value={formData.annualElectricityCost}
+              onChange={(e) => updateField("annualElectricityCost", e.target.value)}
+              className="mt-1.5"
+            />
+            <p className="text-xs text-muted-foreground mt-1">대략적인 수준이면 충분합니다.</p>
+            {errors.annualElectricityCost && <p className="text-sm text-destructive mt-1">{errors.annualElectricityCost}</p>}
+          </div>
+
+          <div>
+            <Label htmlFor="totalFloorArea">연면적 (㎡) *</Label>
+            <Input
+              id="totalFloorArea"
+              placeholder="예) 120,000"
+              value={formData.totalFloorArea}
+              onChange={(e) => updateField("totalFloorArea", e.target.value)}
+              className="mt-1.5"
+            />
+            {errors.totalFloorArea && <p className="text-sm text-destructive mt-1">{errors.totalFloorArea}</p>}
           </div>
         </div>
       </div>
