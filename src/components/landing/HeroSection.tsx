@@ -33,7 +33,7 @@ export function HeroSection() {
           className="max-w-3xl text-center mx-auto">
           
           {/* Headline */}
-          <h1 className="text-[2.5rem] leading-[1.5] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">무료 에너지 진단부터 구축까지
+          <h1 className="text-[2.5rem] leading-[2.0] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">무료 에너지 진단부터 구축까지
             <br />
             에너지 운영의 미래를 만나보세요
           </h1>
