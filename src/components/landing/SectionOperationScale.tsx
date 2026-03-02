@@ -181,7 +181,7 @@ export function SectionOperationScale() {
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight mb-4">
             국내 최대 규모의 구축·운영으로 검증된 실증 레퍼런스
           </h2>
-          <p className="text-base md:text-lg text-white/70">
+          <p className="text-lg md:text-xl text-white/90 font-medium">
             실제 운영 데이터로 검증된 에너지 최적화
           </p>
         </motion.div>
