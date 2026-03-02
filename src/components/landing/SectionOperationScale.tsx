@@ -187,15 +187,41 @@ export function SectionOperationScale() {
           </p>
         </motion.div>
 
-        {/* 3 KPI Cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-          {kpiCards.map((card, index) => (
+        {/* Featured: 스마트 디바이스 */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-6 rounded-2xl px-8 py-7 md:px-10 md:py-8 border border-white/15 mb-5 md:mb-6"
+          style={{
+            background: "rgba(255,255,255,0.1)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            boxShadow: "0 8px 32px -8px rgba(0,0,0,0.3)",
+          }}
+        >
+          <div className="shrink-0" style={{ filter: "drop-shadow(0 0 10px rgba(37,110,244,0.5))" }}>
+            {kpiCards[1].icon}
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm text-white/60 mb-1">{kpiCards[1].label}</p>
+            <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-none mb-1">
+              <KpiNumber target={kpiCards[1].target} suffix={kpiCards[1].suffix} started={started} />
+            </p>
+            <p className="text-xs text-white/50">{kpiCards[1].helper}</p>
+          </div>
+        </motion.div>
+
+        {/* Bottom row: 운영 중 건물 + 적용 범위 */}
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+          {[kpiCards[0], kpiCards[2]].map((card, index) => (
             <motion.div
               key={card.label}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.12 }}
+              transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
               className="flex items-center gap-5 rounded-2xl px-6 py-5 md:px-7 md:py-6 border border-white/15"
               style={{
                 background: "rgba(255,255,255,0.08)",
@@ -204,12 +230,9 @@ export function SectionOperationScale() {
                 boxShadow: "0 8px 32px -8px rgba(0,0,0,0.3)",
               }}
             >
-              {/* Icon */}
               <div className="shrink-0" style={{ filter: "drop-shadow(0 0 10px rgba(37,110,244,0.5))" }}>
                 {card.icon}
               </div>
-
-              {/* Text */}
               <div className="min-w-0">
                 <p className="text-sm text-white/60 mb-1">{card.label}</p>
                 <p className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-none mb-1">
