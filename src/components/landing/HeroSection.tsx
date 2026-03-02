@@ -16,8 +16,8 @@ export function HeroSection() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
+        className="absolute inset-0 w-full h-full object-cover">
+        
         <source src={heroVideo} type="video/mp4" />
       </video>
 
@@ -30,11 +30,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl text-center mx-auto"
-        >
+          className="max-w-3xl text-center mx-auto">
+          
           {/* Headline */}
-          <h1 className="text-[2.5rem] leading-[1.3] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">
-            무료 에너지 진단부터 구축까지.
+          <h1 className="text-[2.5rem] leading-[1.3] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">무료 에너지 진단부터 구축까지
+에너지 운영의 미래를 만나보세요
             <br />
             <span className="text-white mt-1 inline-block">에너지 운영의 미래를 만나보세요.</span>
           </h1>
@@ -46,10 +46,10 @@ export function HeroSection() {
 
           {/* Primary CTA with helper text */}
           <div className="flex flex-col items-center justify-center gap-4">
-            <button 
-              onClick={scrollToForm} 
-              className="cta-gradient-border text-base font-semibold group transition-shadow"
-            >
+            <button
+              onClick={scrollToForm}
+              className="cta-gradient-border text-base font-semibold group transition-shadow">
+              
               <span className="text-slate-900">
                 무료 에너지 진단 신청하기
                 <ArrowRight className="w-4 h-4 inline-block ml-2 transition-transform group-hover:translate-x-1" />
@@ -59,6 +59,6 @@ export function HeroSection() {
           </div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
