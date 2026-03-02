@@ -33,9 +33,23 @@ export function HeroSection() {
           className="max-w-3xl text-center mx-auto">
           
           {/* Headline */}
-          <h1 className="text-[2.5rem] leading-[2.5] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">무료 에너지 진단부터 구축까지
-에너지 운영의 미래를 만나보세요<br />
-            에너지 운영의 미래를 만나보세요
+          <h1 className="text-[2.5rem] leading-[2.5] md:text-5xl lg:text-[3.5rem] font-extrabold text-white mb-6 text-balance tracking-tight">
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="block"
+            >
+              무료 에너지 진단부터 구축까지
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="block"
+            >
+              에너지 운영의 미래를 만나보세요
+            </motion.span>
           </h1>
 
           {/* Subheadline */}
