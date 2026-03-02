@@ -161,12 +161,11 @@ export function SectionOperationScale() {
           backgroundImage: `url(${bgBuildings})`,
         }}
       />
-      {/* Navy gradient overlay */}
+      {/* Subtle dark overlay for text readability only */}
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(135deg, rgba(12,69,194,0.75) 0%, rgba(12,69,194,0.65) 50%, rgba(10,50,150,0.75) 100%)",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.4) 100%)",
         }}
       />
 
@@ -193,9 +192,9 @@ export function SectionOperationScale() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-6 rounded-2xl px-8 py-7 md:px-10 md:py-8 border border-white/15 mb-5 md:mb-6"
+          className="flex items-center gap-6 rounded-2xl px-8 py-7 md:px-10 md:py-8 border border-white/20 mb-5 md:mb-6"
           style={{
-            background: "rgba(255,255,255,0.1)",
+            background: "rgba(12,69,194,0.85)",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
             boxShadow: "0 8px 32px -8px rgba(0,0,0,0.3)",
@@ -205,7 +204,7 @@ export function SectionOperationScale() {
             {kpiCards[1].icon}
           </div>
           <div className="min-w-0">
-            <p className="text-sm text-white/60 mb-1">{kpiCards[1].label}</p>
+            <p className="text-sm font-bold text-white mb-1">{kpiCards[1].label}</p>
             <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-none mb-1">
               <KpiNumber target={kpiCards[1].target} suffix={kpiCards[1].suffix} started={started} />
             </p>
@@ -222,9 +221,9 @@ export function SectionOperationScale() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
-              className="flex items-center gap-5 rounded-2xl px-6 py-5 md:px-7 md:py-6 border border-white/15"
+              className="flex items-center gap-5 rounded-2xl px-6 py-5 md:px-7 md:py-6 border border-white/20"
               style={{
-                background: "rgba(255,255,255,0.08)",
+                background: "rgba(12,69,194,0.85)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
                 boxShadow: "0 8px 32px -8px rgba(0,0,0,0.3)",
@@ -234,7 +233,7 @@ export function SectionOperationScale() {
                 {card.icon}
               </div>
               <div className="min-w-0">
-                <p className="text-sm text-white/60 mb-1">{card.label}</p>
+                <p className="text-sm font-bold text-white mb-1">{card.label}</p>
                 <p className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-none mb-1">
                   <KpiNumber target={card.target} suffix={card.suffix} started={started} />
                 </p>
