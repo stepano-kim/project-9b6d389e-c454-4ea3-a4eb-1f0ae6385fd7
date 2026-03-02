@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import bgBuildings from "@/assets/bg-buildings.jpg";
 
 const kpiCards = [
   {
@@ -150,15 +151,14 @@ export function SectionOperationScale() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden"
-      style={{ padding: "5rem 1.25rem" }}
+      className="relative overflow-hidden flex items-center justify-center"
+      style={{ minHeight: "100vh", padding: "5rem 1.25rem" }}
     >
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')",
+          backgroundImage: `url(${bgBuildings})`,
         }}
       />
       {/* Navy gradient overlay */}
