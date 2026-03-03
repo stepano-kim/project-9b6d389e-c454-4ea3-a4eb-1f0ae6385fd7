@@ -312,7 +312,7 @@ export function QualificationForm() {
               {/* Modal Header */}
               <div className="flex items-center justify-between p-6 border-b border-border">
                 <h3 className="text-lg font-bold text-foreground">
-                  [선택] 개인정보 제3자 제공(정보 공개) 동의(상세)
+                  [필수] 개인정보 제3자 제공(정보 공개) 동의(상세)
                 </h3>
                 <button
                   type="button"
