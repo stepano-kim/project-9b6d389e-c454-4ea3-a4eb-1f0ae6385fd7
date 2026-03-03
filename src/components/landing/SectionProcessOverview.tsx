@@ -63,16 +63,14 @@ export function SectionProcessOverview() {
                 flex flex-col"
             >
               {/* Image */}
-              <div className="px-6 pt-6">
-                <div className="aspect-[16/10] rounded-xl overflow-hidden">
-                  <motion.img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
-                </div>
+              <div className="aspect-[16/10] overflow-hidden">
+                <motion.img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                />
               </div>
 
               {/* Content */}
