@@ -268,7 +268,7 @@ export function QualificationForm() {
 
       {/* Consent */}
       <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
-        <div className="flex items-center gap-3">
+        <div className="flex items-start gap-3 pt-0.5">
           <Checkbox
             id="consent"
             checked={formData.consent}
