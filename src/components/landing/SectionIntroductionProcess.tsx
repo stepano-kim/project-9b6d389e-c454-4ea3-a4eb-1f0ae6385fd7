@@ -63,17 +63,14 @@ const stepVariants = {
   }),
 };
 
-/** Dot color: gray → blue peaking at Step4 (75%), then back to gray at Step5 */
+/** Compute dot color: gray → primary blue up to step4, then fade back */
 function getDotColor(progress: number) {
-  const peak = 0.75; // Step 4 position
-  if (progress <= peak) {
-    // Gray → full blue
-    const t = progress / peak;
-    return `hsl(var(--primary) / ${0.1 + t * 0.9})`;
+  const highlightRatio = 3 / 4; // step4 is at index 3 out of 4 segments
+  if (progress <= highlightRatio) {
+    return `hsl(var(--primary) / ${0.15 + (progress / highlightRatio) * 0.85})`;
   }
-  // Full blue → gray
-  const t = (progress - peak) / (1 - peak);
-  return `hsl(var(--primary) / ${1 - t * 0.85})`;
+  const fadeProgress = (progress - highlightRatio) / (1 - highlightRatio);
+  return `hsl(var(--primary) / ${1 - fadeProgress * 0.7})`;
 }
 
 export function SectionIntroductionProcess() {
@@ -118,21 +115,15 @@ export function SectionIntroductionProcess() {
                       <motion.div
                         key={dotIndex}
                         className="w-[6px] h-[6px] rounded-full"
-                        style={{ backgroundColor: "hsl(var(--border))" }}
-                        animate={{
-                          backgroundColor: [
-                            "hsl(var(--border))",
-                            getDotColor(progress),
-                            "hsl(var(--border))",
-                          ],
-                          scale: [1, 1.4, 1],
-                        }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
                         transition={{
-                          duration: 2.5,
-                          delay: globalIndex * 0.12,
-                          repeat: Infinity,
-                          ease: "easeInOut",
+                          duration: 0.3,
+                          delay: 0.4 + globalIndex * 0.05,
+                          ease: "easeOut",
                         }}
+                        style={{ backgroundColor: getDotColor(progress) }}
                       />
                     );
                   })}
@@ -197,21 +188,15 @@ export function SectionIntroductionProcess() {
                   <motion.div
                     key={i}
                     className="w-[5px] h-[5px] rounded-full"
-                    style={{ backgroundColor: "hsl(var(--border))" }}
-                    animate={{
-                      backgroundColor: [
-                        "hsl(var(--border))",
-                        getDotColor(progress),
-                        "hsl(var(--border))",
-                      ],
-                      scale: [1, 1.4, 1],
-                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
                     transition={{
-                      duration: 2.5,
-                      delay: i * 0.1,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      duration: 0.25,
+                      delay: 0.3 + i * 0.04,
+                      ease: "easeOut",
                     }}
+                    style={{ backgroundColor: getDotColor(progress) }}
                   />
                 );
               })}
