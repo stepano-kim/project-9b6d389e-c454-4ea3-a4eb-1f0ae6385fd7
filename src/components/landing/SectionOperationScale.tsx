@@ -157,7 +157,7 @@ export function SectionOperationScale() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto"
           >
-            공공·캠퍼스·오피스·상업시설·산업 현장 등 다양한 분야에서 에너지를 최적화하고 있습니다.
+            공공·캠퍼스·오피스·상업시설·산업 현장 등<br />다양한 분야에서 에너지를 최적화하고 있습니다.
           </motion.p>
         </div>
 
