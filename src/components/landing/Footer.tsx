@@ -2,28 +2,28 @@ import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border/40 py-12 md:py-16">
+    <footer className="py-12 md:py-16" style={{ background: 'linear-gradient(135deg, hsl(217 91% 50%) 0%, hsl(220 80% 40%) 100%)' }}>
       <div className="container-tight">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo & Links */}
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <Logo variant="color" />
+            <Logo variant="white" />
             <nav className="flex flex-wrap justify-center gap-5 text-sm">
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 개인정보처리방침
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 이용약관
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 문의
               </a>
@@ -31,7 +31,7 @@ export function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white/60">
             © 2026 NX
           </p>
         </div>
