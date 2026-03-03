@@ -26,7 +26,7 @@ export function AnimatedTitle({
   return (
     <Tag className={className}>
       {lines.map((line, i) => (
-        <span key={i} className="block overflow-hidden">
+        <span key={i} className="block overflow-hidden pb-2">
           <motion.span
             className="block"
             initial={{ y: "100%", opacity: 0 }}
