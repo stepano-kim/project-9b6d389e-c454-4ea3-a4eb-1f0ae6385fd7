@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AnimatedTitle } from "./AnimatedTitle";
 
 const cases = [
   {
@@ -60,20 +61,20 @@ export function SectionDeploymentCases() {
   return (
     <section className="section-padding bg-background">
       <div className="container-tight">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-14 md:mb-20"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-4">
-            이렇게 구축·운영되고 있습니다
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
+        <div className="text-center mb-14 md:mb-20">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-4">
+            {"이렇게 구축·운영되고\n있습니다"}
+          </AnimatedTitle>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto"
+          >
             대형 상업 건물과 대규모 캠퍼스에서 실제 운영으로 검증된 사례입니다
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {cases.map((item, index) => (

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { AnimatedTitle } from "./AnimatedTitle";
 import bgBuildings from "@/assets/bg-buildings.jpg";
 
 const kpiCards = [
@@ -171,20 +172,20 @@ export function SectionOperationScale() {
 
       <div className="container-tight relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight mb-4">
-            국내 최대 규모의 구축·운영으로 검증된 실증 레퍼런스
-          </h2>
-          <p className="text-lg md:text-xl text-white/90 font-medium">
+        <div className="text-center mb-12 md:mb-16">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight mb-4">
+            {"국내 최대 규모의 구축·운영으로\n검증된 실증 레퍼런스"}
+          </AnimatedTitle>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg md:text-xl text-white/90 font-medium"
+          >
             실제 운영 데이터로 검증된 에너지 최적화
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* 3 KPI Cards - equal layout */}
         <div className="grid md:grid-cols-3 gap-5 md:gap-6">

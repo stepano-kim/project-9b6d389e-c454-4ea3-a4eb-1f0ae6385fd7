@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AnimatedTitle } from "./AnimatedTitle";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import {
@@ -39,17 +40,11 @@ export function SectionFAQ() {
   return (
     <section id="faq" className="section-padding bg-background">
       <div className="container-tight">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
+        <div className="text-center mb-14">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
             자주 묻는 질문
-          </h2>
-        </motion.div>
+          </AnimatedTitle>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

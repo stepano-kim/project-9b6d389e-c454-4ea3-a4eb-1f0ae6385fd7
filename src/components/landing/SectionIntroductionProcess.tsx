@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AnimatedTitle } from "./AnimatedTitle";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -19,22 +20,21 @@ export function SectionIntroductionProcess() {
   return (
     <section className="section-padding bg-background">
       <div className="container-tight">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-4">
-            초기 투자 Zero, 바로 시작하세요!
-          </h2>
-
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <div className="text-center mb-12">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-4">
+            {"초기 투자 Zero,\n바로 시작하세요!"}
+          </AnimatedTitle>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          >
             공기업 선투자로 귀사 부담 없이<br />
             상담부터 운영까지 한 번에 진행됩니다.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Timeline - Desktop */}
         <motion.div

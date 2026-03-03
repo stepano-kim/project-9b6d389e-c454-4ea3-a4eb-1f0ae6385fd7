@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AnimatedTitle } from "./AnimatedTitle";
 import { Search, Settings, BarChart3 } from "lucide-react";
 import processDiagnosis from "@/assets/process/process-diagnosis.jpg";
 import processConstruction from "@/assets/process/process-construction.jpg";
@@ -46,17 +47,11 @@ export function SectionProcessOverview() {
   return (
     <section className="section-padding section-subtle">
       <div className="container-tight">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-14 md:mb-20"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
-            NX는 이렇게 에너지를 최적화합니다
-          </h2>
-        </motion.div>
+        <div className="text-center mb-14 md:mb-20">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
+            {"NX는 이렇게\n에너지를 최적화합니다"}
+          </AnimatedTitle>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((item, index) => (

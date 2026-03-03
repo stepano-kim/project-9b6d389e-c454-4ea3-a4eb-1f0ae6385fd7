@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AnimatedTitle } from "./AnimatedTitle";
 import benefitZeroCost from "@/assets/benefits/benefit-zero-cost.jpg";
 import benefitEnergySaving from "@/assets/benefits/benefit-energy-saving.jpg";
 import benefitEsgData from "@/assets/benefits/benefit-esg-data.jpg";
@@ -43,20 +44,20 @@ export function SectionKeyBenefits() {
     <section className="section-padding bg-background">
       <div className="container-tight">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-14 md:mb-20"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-3">
-            부담 없이 시작해서, 지속 가능한 성과까지
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground">
+        <div className="text-center mb-14 md:mb-20">
+          <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-3">
+            {"부담 없이 시작해서,\n지속 가능한 성과까지"}
+          </AnimatedTitle>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-base md:text-lg text-muted-foreground"
+          >
             에너지 관리 혁신, NX는 이렇게 다릅니다
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Cards - Staggered offset layout */}
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
