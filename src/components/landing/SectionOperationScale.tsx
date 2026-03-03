@@ -122,7 +122,7 @@ export function SectionOperationScale() {
               />
               {/* Content */}
               <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-8">
-                <p className="text-sm font-semibold text-white/80 mb-1">{card.label}</p>
+                <p className="text-base md:text-lg font-bold text-white/90 mb-1">{card.label}</p>
                 <p className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-none mb-1.5 drop-shadow-lg">
                   <KpiNumber target={card.target} suffix={card.suffix} started={started} />
                 </p>
