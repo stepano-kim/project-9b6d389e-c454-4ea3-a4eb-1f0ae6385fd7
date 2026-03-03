@@ -267,8 +267,7 @@ export function QualificationForm() {
       </div>
 
       {/* Consent */}
-      <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8 space-y-5">
-        {/* Required consent */}
+      <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
         <div className="flex items-start gap-3">
           <Checkbox
             id="consent"
@@ -277,24 +276,7 @@ export function QualificationForm() {
           />
           <div className="flex-1">
             <label htmlFor="consent" className="text-sm text-foreground cursor-pointer leading-relaxed">
-              [필수] 본인은 에너지 최적화 검토를 위해 에너지 공기업 등 제3자에게 정보가 제공되는 것에 동의합니다.
-            </label>
-            {errors.consent && <p className="text-sm text-destructive mt-1">{errors.consent}</p>}
-          </div>
-        </div>
-
-        <div className="border-t border-border" />
-
-        {/* Optional third-party consent */}
-        <div className="flex items-start gap-3">
-          <Checkbox
-            id="thirdPartyConsent"
-            checked={formData.thirdPartyConsent}
-            onCheckedChange={(checked) => updateField("thirdPartyConsent", checked === true)}
-          />
-          <div className="flex-1">
-            <label htmlFor="thirdPartyConsent" className="text-sm text-foreground cursor-pointer leading-relaxed">
-              [선택] 개인정보 제3자 제공(정보 공개) 동의
+              [필수] 본인은 에너지 최적화 검토를 위해 에너지 공기업 등 제3자에게 개인정보가 제공되는 것에 동의합니다.
             </label>
             <button
               type="button"
@@ -303,6 +285,7 @@ export function QualificationForm() {
             >
               자세히 보기
             </button>
+            {errors.consent && <p className="text-sm text-destructive mt-1">{errors.consent}</p>}
           </div>
         </div>
       </div>
