@@ -69,32 +69,6 @@ const kpiCards = [
       </svg>
     ),
   },
-  {
-    label: "적용 범위",
-    target: 5,
-    suffix: "개 분야",
-    helper: "공공·캠퍼스·오피스·상업시설·산업 현장",
-    icon: (
-      <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16">
-        <defs>
-          <linearGradient id="map-g" x1="0" y1="0" x2="64" y2="64">
-            <stop offset="0%" stopColor="#5b9aff" />
-            <stop offset="100%" stopColor="#256ef4" />
-          </linearGradient>
-          <filter id="map-glow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
-        <circle cx="32" cy="32" r="24" fill="url(#map-g)" filter="url(#map-glow)" opacity="0.15" />
-        <circle cx="32" cy="32" r="16" fill="url(#map-g)" filter="url(#map-glow)" opacity="0.25" />
-        <path d="M32 8 C32 8 44 20 44 30 C44 36.6 38.6 42 32 42 C25.4 42 20 36.6 20 30 C20 20 32 8 32 8Z" fill="url(#map-g)" filter="url(#map-glow)" />
-        <circle cx="32" cy="28" r="6" fill="white" opacity="0.85" />
-        <circle cx="32" cy="28" r="3" fill="#256ef4" />
-        <ellipse cx="32" cy="52" rx="10" ry="3" fill="#256ef4" opacity="0.2" />
-      </svg>
-    ),
-  },
 ];
 
 function useCountUp(target: number, duration: number, start: boolean) {
@@ -181,14 +155,14 @@ export function SectionOperationScale() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-white/90 font-medium"
+            className="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto"
           >
-            실제 운영 데이터로 검증된 에너지 최적화
+            공공·캠퍼스·오피스·상업시설·산업 현장 등 다양한 분야에서 에너지를 최적화하고 있습니다.
           </motion.p>
         </div>
 
         {/* 3 KPI Cards - equal layout */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
           {kpiCards.map((card, index) => (
             <motion.div
               key={card.label}
@@ -209,7 +183,7 @@ export function SectionOperationScale() {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-bold text-white mb-1">{card.label}</p>
-                <p className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-none mb-1">
+                <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-none mb-1">
                   <KpiNumber target={card.target} suffix={card.suffix} started={started} />
                 </p>
                 <p className="text-xs text-white/60">{card.helper}</p>
