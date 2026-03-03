@@ -5,6 +5,7 @@ import { SectionKeyBenefits } from "@/components/landing/SectionKeyBenefits";
 import { SectionProcessOverview } from "@/components/landing/SectionProcessOverview";
 
 import { SectionOperationScale } from "@/components/landing/SectionOperationScale";
+import { SectionAnnualSavings } from "@/components/landing/SectionAnnualSavings";
 import { SectionIntroductionProcess } from "@/components/landing/SectionIntroductionProcess";
 import { SectionLeadForm } from "@/components/landing/SectionLeadForm";
 import { Footer } from "@/components/landing/Footer";
@@ -20,6 +21,7 @@ const Index = () => {
         
         
         <SectionOperationScale />
+        <SectionAnnualSavings />
         <SectionProcessOverview />
         <SectionLeadForm />
       </main>
