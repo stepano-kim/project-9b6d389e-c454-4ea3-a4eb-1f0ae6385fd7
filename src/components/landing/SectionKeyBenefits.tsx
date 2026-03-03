@@ -68,9 +68,8 @@ export function SectionKeyBenefits() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              className={`group bg-card rounded-2xl overflow-hidden border border-border shadow-card 
-                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2
-                ${index === 1 ? "md:mt-8" : ""}`}
+              className="group bg-card rounded-2xl overflow-hidden border border-border shadow-card 
+                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2"
             >
               {/* Image Container */}
               <div className="relative aspect-[16/11] overflow-hidden">

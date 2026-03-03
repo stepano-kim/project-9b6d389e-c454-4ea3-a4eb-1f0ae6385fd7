@@ -73,9 +73,8 @@ export function SectionProcessOverview() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              className={`relative bg-card rounded-2xl border border-border overflow-hidden h-full
-                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2
-                ${index === 1 ? "md:mt-10" : index === 2 ? "md:mt-5" : ""}`}
+              className="relative bg-card rounded-2xl border border-border overflow-hidden h-full
+                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2"
             >
               <div className="flex flex-col h-full p-6 md:p-7">
                 {/* Top row: Step badge + Icon */}
