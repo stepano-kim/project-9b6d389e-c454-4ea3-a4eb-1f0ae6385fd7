@@ -85,7 +85,7 @@ export function SectionDeploymentCases() {
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
               className="group bg-card rounded-2xl overflow-hidden shadow-card border border-border
-                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2"
+                transition-all duration-500 hover:shadow-elevated hover:-translate-y-3 hover:scale-[1.02]"
             >
               {/* Image */}
               <div className="aspect-[16/10] overflow-hidden">
