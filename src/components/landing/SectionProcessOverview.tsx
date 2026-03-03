@@ -44,7 +44,7 @@ const cardVariants = {
 
 export function SectionProcessOverview() {
   return (
-    <section className="section-padding bg-[hsl(220,20%,10%)]">
+    <section className="section-padding section-subtle">
       <div className="container-tight">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -53,7 +53,7 @@ export function SectionProcessOverview() {
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-14 md:mb-20"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
             NX는 이렇게 에너지를 최적화합니다
           </h2>
         </motion.div>
@@ -67,14 +67,14 @@ export function SectionProcessOverview() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              className="group rounded-2xl overflow-hidden border border-white/10 bg-white/[0.04]
-                transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-3 hover:scale-[1.02]
+              className="group rounded-2xl overflow-hidden border border-border bg-card shadow-card
+                transition-all duration-500 hover:shadow-elevated hover:-translate-y-3 hover:scale-[1.02]
                 flex flex-col"
             >
               {/* Icon */}
               <div className="p-6 pb-0">
-                <div className="w-12 h-12 rounded-xl border border-white/15 bg-white/[0.06] flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-white/70" strokeWidth={1.5} />
+                <div className="w-12 h-12 rounded-xl border border-border bg-accent flex items-center justify-center">
+                  <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                 </div>
               </div>
 
@@ -93,10 +93,10 @@ export function SectionProcessOverview() {
 
               {/* Content */}
               <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-xl font-bold text-foreground mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-white/50 leading-relaxed flex-1">
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                   {item.body}
                 </p>
               </div>
