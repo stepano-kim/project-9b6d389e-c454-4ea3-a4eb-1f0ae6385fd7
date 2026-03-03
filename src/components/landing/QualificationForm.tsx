@@ -406,7 +406,7 @@ export function QualificationForm() {
       </AnimatePresence>
 
       {/* Submit */}
-      <div className="space-y-3">
+      <div className="space-y-3 flex flex-col items-center">
         <Button type="submit" size="lg" className="w-full max-w-xs mx-auto gap-2">
           절감 가능 금액 지금 확인하기
           <ArrowRight className="w-4 h-4" />
