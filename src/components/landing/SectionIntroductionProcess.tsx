@@ -63,10 +63,23 @@ const stepVariants = {
   }),
 };
 
+/** Compute dot color: gray → primary blue up to step4, then fade back */
+function getDotColor(progress: number) {
+  const highlightRatio = 3 / 4; // step4 is at index 3 out of 4 segments
+  if (progress <= highlightRatio) {
+    return `hsl(var(--primary) / ${0.15 + (progress / highlightRatio) * 0.85})`;
+  }
+  const fadeProgress = (progress - highlightRatio) / (1 - highlightRatio);
+  return `hsl(var(--primary) / ${1 - fadeProgress * 0.7})`;
+}
+
 export function SectionIntroductionProcess() {
   const scrollToForm = () => {
     document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const dotsPerSegment = 5;
+  const totalDesktopDots = 4 * dotsPerSegment;
 
   return (
     <section className="section-padding bg-background">
@@ -91,8 +104,32 @@ export function SectionIntroductionProcess() {
         {/* 5-Step Flow — Desktop */}
         <div className="hidden md:block mb-14">
           <div className="relative">
-            {/* Connecting line */}
-            <div className="absolute top-8 left-[10%] right-[10%] h-0.5 bg-border" />
+            {/* Animated dot connectors */}
+            <div className="absolute top-8 left-[10%] right-[10%] flex items-center -translate-y-1/2">
+              {[0, 1, 2, 3].map((segmentIndex) => (
+                <div key={segmentIndex} className="flex-1 flex items-center justify-center gap-[6px]">
+                  {Array.from({ length: dotsPerSegment }).map((_, dotIndex) => {
+                    const globalIndex = segmentIndex * dotsPerSegment + dotIndex;
+                    const progress = globalIndex / (totalDesktopDots - 1);
+                    return (
+                      <motion.div
+                        key={dotIndex}
+                        className="w-[6px] h-[6px] rounded-full"
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.4 + globalIndex * 0.05,
+                          ease: "easeOut",
+                        }}
+                        style={{ backgroundColor: getDotColor(progress) }}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
 
             <div className="grid grid-cols-5 gap-4 relative">
               {steps.map((step, i) => (
@@ -143,8 +180,27 @@ export function SectionIntroductionProcess() {
         {/* 5-Step Flow — Mobile */}
         <div className="md:hidden mb-14">
           <div className="relative pl-10">
-            {/* Vertical line */}
-            <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-border" />
+            {/* Animated vertical dots */}
+            <div className="absolute left-[11px] top-2 bottom-2 flex flex-col items-center justify-between">
+              {Array.from({ length: 20 }).map((_, i) => {
+                const progress = i / 19;
+                return (
+                  <motion.div
+                    key={i}
+                    className="w-[5px] h-[5px] rounded-full"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.25,
+                      delay: 0.3 + i * 0.04,
+                      ease: "easeOut",
+                    }}
+                    style={{ backgroundColor: getDotColor(progress) }}
+                  />
+                );
+              })}
+            </div>
 
             <div className="space-y-8">
               {steps.map((step, i) => (
