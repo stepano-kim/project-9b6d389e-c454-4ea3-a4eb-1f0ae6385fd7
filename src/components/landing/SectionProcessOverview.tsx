@@ -34,15 +34,29 @@ const steps = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.96 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.65,
+      delay: i * 0.12,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  }),
+};
+
 export function SectionProcessOverview() {
   return (
     <section className="section-padding section-subtle">
       <div className="container-tight">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-14 md:mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight">
@@ -50,28 +64,32 @@ export function SectionProcessOverview() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((item, index) => (
             <motion.div
               key={item.step}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative bg-card rounded-2xl border border-border overflow-hidden h-full"
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className={`relative bg-card rounded-2xl border border-border overflow-hidden h-full
+                transition-all duration-500 hover:shadow-elevated hover:-translate-y-2
+                ${index === 1 ? "md:mt-10" : index === 2 ? "md:mt-5" : ""}`}
             >
               <div className="flex flex-col h-full p-6 md:p-7">
                 {/* Top row: Step badge + Icon */}
                 <div className="flex items-start justify-between mb-4">
-                  {/* Step badge */}
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold w-fit">
                     {item.step}
                   </div>
-
-                  {/* Icon - top right */}
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
+                  <motion.div
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-accent flex items-center justify-center flex-shrink-0"
+                    whileHover={{ rotate: 5, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <item.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" strokeWidth={1.5} />
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Title */}
