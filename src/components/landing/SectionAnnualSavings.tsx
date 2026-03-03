@@ -191,11 +191,11 @@ function StatCard({ stat, index, started }: { stat: typeof stats[number]; index:
       <p className="text-sm font-semibold text-white/60 tracking-wide mb-4">{stat.label}</p>
 
       {/* Number + Unit */}
-      <div className="flex items-baseline gap-1.5">
-        <span className="text-4xl md:text-5xl font-black text-white tracking-tight tabular-nums">
+      <div className="flex items-baseline gap-1 whitespace-nowrap">
+        <span className="text-2xl md:text-3xl font-black text-white tracking-tight tabular-nums">
           {count.toLocaleString()}
         </span>
-        <span className="text-lg md:text-xl font-bold text-white/70">
+        <span className="text-sm md:text-base font-bold text-white/70">
           {stat.suffix}
         </span>
       </div>
@@ -238,7 +238,7 @@ export function SectionAnnualSavings() {
           className="text-center mb-14 md:mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            NX 에너지 최적화 효과
+            NX가 연간 만들어내는 에너지 최적화 효과
           </h2>
         </motion.div>
 
