@@ -1,9 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
-import statEnergy from "@/assets/stats/stat-energy.jpg";
-import statCarbon from "@/assets/stats/stat-carbon.jpg";
-import statTrees from "@/assets/stats/stat-trees.jpg";
-import statHomes from "@/assets/stats/stat-homes.jpg";
+import { Zap, Leaf, TreePine, Home } from "lucide-react";
 
 /* ── Count-up hook ── */
 function useCountUp(target: number, duration: number, start: boolean) {
@@ -27,28 +24,32 @@ function useCountUp(target: number, duration: number, start: boolean) {
 /* ── Stat card data ── */
 const stats = [
   {
-    image: statEnergy,
+    icon: Zap,
     value: 38,
     suffix: "GWh",
     label: "전력 에너지 절감",
+    color: "from-blue-400 to-cyan-400",
   },
   {
-    image: statCarbon,
+    icon: Leaf,
     value: 18057,
     suffix: "tCO₂",
     label: "탄소 배출 절감",
+    color: "from-emerald-400 to-green-400",
   },
   {
-    image: statTrees,
+    icon: TreePine,
     value: 109682,
     suffix: "그루",
     label: "소나무 식수 효과",
+    color: "from-green-400 to-lime-400",
   },
   {
-    image: statHomes,
+    icon: Home,
     value: 10326,
     suffix: "가구",
     label: "가구 환산 효과",
+    color: "from-amber-400 to-yellow-400",
   },
 ];
 
@@ -171,6 +172,7 @@ function EnergyCanvas() {
 /* ── Stat Card ── */
 function StatCard({ stat, index, started }: { stat: typeof stats[number]; index: number; started: boolean }) {
   const count = useCountUp(stat.value, 2000, started);
+  const Icon = stat.icon;
 
   return (
     <motion.div
@@ -178,26 +180,24 @@ function StatCard({ stat, index, started }: { stat: typeof stats[number]; index:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative flex flex-col items-center text-center rounded-2xl overflow-hidden border border-white/[0.08] px-6 py-10 transition-transform duration-500 hover:scale-[1.08] cursor-default"
+      className="group flex flex-col items-center text-center rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-6 py-10 hover:bg-white/[0.06] transition-colors duration-300"
     >
-      {/* Background image - visible on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <img src={stat.image} alt="" className="w-full h-full object-cover" />
+      {/* Icon */}
+      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+        <Icon className="w-6 h-6 text-white" />
       </div>
-      {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 bg-white/[0.04] backdrop-blur-sm group-hover:bg-black/40 group-hover:backdrop-blur-md transition-all duration-500" />
 
-      {/* Content */}
-      <div className="relative z-10">
-        <p className="text-sm font-semibold text-white/60 tracking-wide mb-4">{stat.label}</p>
-        <div className="flex items-baseline gap-1 whitespace-nowrap">
-          <span className="text-2xl md:text-3xl font-black text-white tracking-tight tabular-nums">
-            {count.toLocaleString()}
-          </span>
-          <span className="text-sm md:text-base font-bold text-white/70">
-            {stat.suffix}
-          </span>
-        </div>
+      {/* Label */}
+      <p className="text-sm font-semibold text-white/60 tracking-wide mb-4">{stat.label}</p>
+
+      {/* Number + Unit */}
+      <div className="flex items-baseline gap-1 whitespace-nowrap">
+        <span className="text-2xl md:text-3xl font-black text-white tracking-tight tabular-nums">
+          {count.toLocaleString()}
+        </span>
+        <span className="text-sm md:text-base font-bold text-white/70">
+          {stat.suffix}
+        </span>
       </div>
     </motion.div>
   );
