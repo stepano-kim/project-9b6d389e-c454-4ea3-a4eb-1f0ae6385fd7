@@ -33,8 +33,7 @@ const stats = [
   {
     icon: Leaf,
     value: 18057,
-    suffix: "t",
-    prefix: "CO₂ ",
+    suffix: "tCO₂",
     label: "탄소 배출 절감",
     color: "from-emerald-400 to-green-400",
   },
@@ -49,8 +48,7 @@ const stats = [
     icon: Home,
     value: 10326,
     suffix: "가구",
-    label: "에너지 절감 효과",
-    sub: "4인 가구 기준, 월 평균 307kWh 사용",
+    label: "가구 환산 효과",
     color: "from-amber-400 to-yellow-400",
   },
 ];
@@ -182,35 +180,25 @@ function StatCard({ stat, index, started }: { stat: typeof stats[number]; index:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="relative group"
+      className="group flex flex-col items-center text-center rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-6 py-10 hover:bg-white/[0.06] transition-colors duration-300"
     >
-      <div className="relative z-10 flex flex-col items-center text-center px-4 py-8 md:py-10">
-        {/* Icon */}
-        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-          <Icon className="w-7 h-7 text-white" />
-        </div>
-
-        {/* Number */}
-        <div className="mb-3">
-          <span className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight tabular-nums">
-            {stat.prefix || ""}{count.toLocaleString()}
-          </span>
-          <span className="text-xl md:text-2xl font-bold text-white/80 ml-1">
-            {stat.suffix}
-          </span>
-        </div>
-
-        {/* Label */}
-        <p className="text-base md:text-lg font-semibold text-white/90">{stat.label}</p>
-        {stat.sub && (
-          <p className="text-xs text-white/50 mt-1">{stat.sub}</p>
-        )}
+      {/* Icon */}
+      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+        <Icon className="w-6 h-6 text-white" />
       </div>
 
-      {/* Subtle divider on the right (not on last item) */}
-      {index < stats.length - 1 && (
-        <div className="hidden md:block absolute right-0 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
-      )}
+      {/* Label */}
+      <p className="text-sm font-semibold text-white/60 tracking-wide mb-4">{stat.label}</p>
+
+      {/* Number + Unit */}
+      <div className="flex items-baseline gap-1.5">
+        <span className="text-4xl md:text-5xl font-black text-white tracking-tight tabular-nums">
+          {count.toLocaleString()}
+        </span>
+        <span className="text-lg md:text-xl font-bold text-white/70">
+          {stat.suffix}
+        </span>
+      </div>
     </motion.div>
   );
 }
@@ -247,18 +235,15 @@ export function SectionAnnualSavings() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-14 md:mb-20"
         >
-          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">
-            Annual Performance
-          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            연간 절감 효과
+            NX 에너지 최적화 효과
           </h2>
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} index={i} started={inView} />
           ))}
