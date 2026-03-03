@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { SectionKeyBenefits } from "@/components/landing/SectionKeyBenefits";
 
 import { SectionProcessOverview } from "@/components/landing/SectionProcessOverview";
-import { SectionDeploymentCases } from "@/components/landing/SectionDeploymentCases";
+
 import { SectionOperationScale } from "@/components/landing/SectionOperationScale";
 import { SectionIntroductionProcess } from "@/components/landing/SectionIntroductionProcess";
 import { SectionLeadForm } from "@/components/landing/SectionLeadForm";
@@ -18,7 +18,7 @@ const Index = () => {
         <SectionKeyBenefits />
         <SectionIntroductionProcess />
         
-        <SectionDeploymentCases />
+        
         <SectionOperationScale />
         <SectionProcessOverview />
         <SectionLeadForm />
