@@ -38,23 +38,23 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="block mb-2 md:mb-3"
-            >
+              className="block mb-2 md:mb-3">
+              
               무료 에너지 진단부터 구축까지
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="block"
-            >
+              className="block">
+              
               에너지 운영의 미래를 만나보세요
             </motion.span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-[#E5E7EB] mb-12 max-w-2xl text-balance leading-relaxed mx-auto">
-            초기 비용없이 전기료를 절감하고, 에너지를 관리해보세요.
+            초기 비용없이 에너지 최적화 시스템을 구축하고, 전기료를 절감하세요      
           </p>
 
           {/* Primary CTA with helper text */}
