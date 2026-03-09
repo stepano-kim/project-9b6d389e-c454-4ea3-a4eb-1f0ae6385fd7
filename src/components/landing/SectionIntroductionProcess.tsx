@@ -87,7 +87,7 @@ export function SectionIntroductionProcess() {
         {/* Header */}
         <div className="text-center mb-14 md:mb-16">
           <AnimatedTitle className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground tracking-tight mb-4">
-            {"공기업 선투자 구조로,\n초기 투자 부담 없이 시작합니다."}
+            {"공기업 선투자 구조로,\n초기 투자 부담 없이 시작합니다"}
           </AnimatedTitle>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
