@@ -354,7 +354,7 @@ export function QualificationForm() {
                 <div>
                   <p className="font-semibold text-foreground mb-2">4. 제공하는 개인정보의 항목(최소 범위)</p>
                   <p><span className="font-medium text-foreground">(필수 제공 가능 항목)</span> 이름, 이메일, 휴대전화</p>
-                  <p className="mt-1"><span className="font-medium text-foreground">(프로젝트 수행에 필요한 경우에 한해 제공 가능 항목)</span> 건물 운영 정보: 사이트명, 지역, 건물 유형, 연평균 전기료(범위 또는 값), 연면적</p>
+                  <p className="mt-1"><span className="font-medium text-foreground">(프로젝트 수행에 필요한 경우에 한해 제공 가능 항목)</span> 건물 운영 정보: 사이트명, 지역, 건물 유형, 연평균전기요금(범위 또는 값), 연면적</p>
                   <p className="mt-1 text-xs">※ NX는 목적 달성에 필요한 최소 범위로만 제공합니다.</p>
                 </div>
 
