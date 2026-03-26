@@ -45,13 +45,25 @@ interface FormData {
   siteName: string;
   region: string;
   buildingType: string;
-  annualElectricityCost: string;
-  totalFloorArea: string;
+  annualElectricCostKRW: string;
+  floorAreaM2: string;
   needs: string[];
   needsOther: string;
   consent: boolean;
   thirdPartyConsent: boolean;
 }
+
+const formatWithCommas = (value: string): string => {
+  if (!value) return "";
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+const stripNonDigits = (value: string): { digits: string; hasInvalid: boolean } => {
+  const stripped = value.replace(/[\s,]/g, "");
+  const hasInvalid = stripped.length > 0 && !/^\d+$/.test(stripped);
+  const digits = stripped.replace(/\D/g, "");
+  return { digits, hasInvalid };
+};
 
 export function QualificationForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
