@@ -98,6 +98,19 @@ export function QualificationForm() {
       consent: formData.consent,
     });
 
+    // Validate needsOther when 기타 is selected
+    if (formData.needs.includes("기타(직접 입력)") && !formData.needsOther.trim()) {
+      const newErrors: Record<string, string> = {};
+      if (!result.success) {
+        result.error.errors.forEach((err) => {
+          if (err.path[0]) newErrors[err.path[0] as string] = err.message;
+        });
+      }
+      newErrors.needsOther = "기타 내용을 입력해주세요";
+      setErrors(newErrors);
+      return;
+    }
+
     if (!result.success) {
       const newErrors: Record<string, string> = {};
       result.error.errors.forEach((err) => {
