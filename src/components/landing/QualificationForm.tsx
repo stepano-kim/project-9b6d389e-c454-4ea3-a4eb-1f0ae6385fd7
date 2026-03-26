@@ -21,8 +21,8 @@ const formSchema = z.object({
   siteName: z.string().trim().min(1, { message: "사이트명을 입력해주세요" }),
   region: z.string().trim().min(1, { message: "지역을 입력해주세요" }),
   buildingType: z.string().min(1, { message: "건물 유형을 선택해주세요" }),
-  annualElectricityCost: z.string().trim().min(1, { message: "연평균전기요금을 입력해주세요" }),
-  totalFloorArea: z.string().trim().min(1, { message: "연면적을 입력해주세요" }),
+  annualElectricCostKRW: z.string().trim().min(1, { message: "연평균 전기요금을 입력해 주세요." }),
+  floorAreaM2: z.string().trim().min(1, { message: "연면적을 입력해 주세요." }),
   consent: z.literal(true, { errorMap: () => ({ message: "개인정보 제3자 제공 동의가 필요합니다" }) }),
   thirdPartyConsent: z.boolean().optional(),
 });
