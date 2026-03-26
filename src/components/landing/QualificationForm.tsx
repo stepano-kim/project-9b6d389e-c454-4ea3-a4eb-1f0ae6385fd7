@@ -302,7 +302,7 @@ export function QualificationForm() {
           관심 있는 개선 항목을 선택해 주세요. (복수 선택 가능)
         </h3>
         <p className="text-xs text-muted-foreground mb-6">
-          선택하신 항목을 기준으로 진단 범위와 우선순위를 제안드립니다.
+          선택하지 않으셔도 진행 가능합니다. 선택하신 항목을 기준으로 진단 범위와 우선순위를 제안드립니다.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
