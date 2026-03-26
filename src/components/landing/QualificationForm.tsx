@@ -296,6 +296,69 @@ export function QualificationForm() {
         </div>
       </div>
 
+      {/* Needs / Interests */}
+      <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
+        <h3 className="text-lg font-semibold text-foreground mb-1">
+          관심 있는 개선 항목을 선택해 주세요. (복수 선택 가능)
+        </h3>
+        <p className="text-xs text-muted-foreground mb-6">
+          선택하신 항목을 기준으로 진단 범위와 우선순위를 제안드립니다.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {NEEDS_OPTIONS.map((option) => {
+            const isChecked = formData.needs.includes(option);
+            return (
+              <div key={option} className="flex items-center gap-2.5">
+                <Checkbox
+                  id={`need-${option}`}
+                  checked={isChecked}
+                  onCheckedChange={(checked) => {
+                    const next = checked
+                      ? [...formData.needs, option]
+                      : formData.needs.filter((n) => n !== option);
+                    updateField("needs", next);
+                    // Clear needsOther when 기타 is unchecked
+                    if (option === "기타(직접 입력)" && !checked) {
+                      updateField("needsOther", "");
+                      setErrors((prev) => {
+                        const e = { ...prev };
+                        delete e.needsOther;
+                        return e;
+                      });
+                    }
+                  }}
+                  className="h-5 w-5 rounded-md"
+                />
+                <label
+                  htmlFor={`need-${option}`}
+                  className="text-sm text-foreground cursor-pointer leading-relaxed"
+                >
+                  {option}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* 기타 text input */}
+        {formData.needs.includes("기타(직접 입력)") && (
+          <div className="mt-4">
+            <Label htmlFor="needsOther">기타 내용 *</Label>
+            <Input
+              id="needsOther"
+              placeholder="원하시는 개선 항목을 입력해 주세요"
+              value={formData.needsOther}
+              onChange={(e) => updateField("needsOther", e.target.value)}
+              className="mt-1.5"
+            />
+            {errors.needsOther && (
+              <p className="text-sm text-destructive mt-1">{errors.needsOther}</p>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Consent */}
       <div className="bg-card rounded-2xl shadow-card border border-border p-6 md:p-8">
         <div className="flex gap-3">
