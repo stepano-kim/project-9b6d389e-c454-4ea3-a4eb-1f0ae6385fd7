@@ -285,9 +285,14 @@ export function QualificationForm() {
                 <SelectValue placeholder="선택하세요" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="commercial">상업용 빌딩</SelectItem>
-                <SelectItem value="campus">대학 캠퍼스</SelectItem>
-                <SelectItem value="industrial">공장·산업시설</SelectItem>
+                <SelectItem value="school_k12">초·중·고등학교</SelectItem>
+                <SelectItem value="university">대학교</SelectItem>
+                <SelectItem value="office">오피스</SelectItem>
+                <SelectItem value="commercial">상업시설</SelectItem>
+                <SelectItem value="hospital">호텔/병원</SelectItem>
+                <SelectItem value="factory">공장·산업체</SelectItem>
+                <SelectItem value="warehouse">물류·창고</SelectItem>
+                <SelectItem value="mixed_use">복합시설</SelectItem>
                 <SelectItem value="other">기타</SelectItem>
               </SelectContent>
             </Select>
