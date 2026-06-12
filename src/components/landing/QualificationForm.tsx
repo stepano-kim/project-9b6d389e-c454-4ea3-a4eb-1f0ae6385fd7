@@ -565,8 +565,8 @@ export function QualificationForm() {
 
       {/* Submit */}
       <div className="space-y-3 flex flex-col items-center">
-        <Button type="submit" size="lg" className="w-full max-w-xs mx-auto gap-2">
-          절감 가능 금액 지금 확인하기
+        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full max-w-xs mx-auto gap-2">
+          {isSubmitting ? "제출 중..." : "절감 가능 금액 지금 확인하기"}
           <ArrowRight className="w-4 h-4" />
         </Button>
         <p className="text-xs text-muted-foreground text-center">
