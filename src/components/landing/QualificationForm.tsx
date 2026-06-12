@@ -67,6 +67,7 @@ const stripNonDigits = (value: string): { digits: string; hasInvalid: boolean } 
 
 export function QualificationForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -95,7 +96,7 @@ export function QualificationForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const result = formSchema.safeParse({
@@ -132,8 +133,20 @@ export function QualificationForm() {
       return;
     }
 
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error("제출 실패");
+      setIsSubmitted(true);
+    } catch (e) {
+      alert("제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -272,9 +285,14 @@ export function QualificationForm() {
                 <SelectValue placeholder="선택하세요" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="commercial">상업용 빌딩</SelectItem>
-                <SelectItem value="campus">대학 캠퍼스</SelectItem>
-                <SelectItem value="industrial">공장·산업시설</SelectItem>
+                <SelectItem value="school_k12">초·중·고등학교</SelectItem>
+                <SelectItem value="university">대학교</SelectItem>
+                <SelectItem value="office">오피스</SelectItem>
+                <SelectItem value="commercial">상업시설</SelectItem>
+                <SelectItem value="hospital">호텔/병원</SelectItem>
+                <SelectItem value="factory">공장·산업체</SelectItem>
+                <SelectItem value="warehouse">물류·창고</SelectItem>
+                <SelectItem value="mixed_use">복합시설</SelectItem>
                 <SelectItem value="other">기타</SelectItem>
               </SelectContent>
             </Select>
@@ -547,8 +565,8 @@ export function QualificationForm() {
 
       {/* Submit */}
       <div className="space-y-3 flex flex-col items-center">
-        <Button type="submit" size="lg" className="w-full max-w-xs mx-auto gap-2">
-          절감 가능 금액 지금 확인하기
+        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full max-w-xs mx-auto gap-2">
+          {isSubmitting ? "제출 중..." : "절감 가능 금액 지금 확인하기"}
           <ArrowRight className="w-4 h-4" />
         </Button>
         <p className="text-xs text-muted-foreground text-center">
