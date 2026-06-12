@@ -67,6 +67,7 @@ const stripNonDigits = (value: string): { digits: string; hasInvalid: boolean } 
 
 export function QualificationForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [formData, setFormData] = useState<FormData>({
