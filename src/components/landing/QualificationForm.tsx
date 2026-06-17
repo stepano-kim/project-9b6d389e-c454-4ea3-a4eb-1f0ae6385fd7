@@ -259,7 +259,7 @@ export function QualificationForm() {
               onChange={(e) => updateField("siteName", e.target.value)}
               className="mt-1.5"
             />
-            <p className="text-xs text-muted-foreground mt-1">건물 또는 운영 사이트의 이름</p>
+            <p className="text-xs text-muted-foreground mt-1">건물 또는 운영 사이트의 이름\u00a0\u00a0</p>
             {errors.siteName && <p className="text-sm text-destructive mt-1">{errors.siteName}</p>}
           </div>
 
