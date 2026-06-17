@@ -352,7 +352,7 @@ export function QualificationForm() {
               />
               <span className="text-sm font-medium text-muted-foreground shrink-0">m²</span>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">가이드: 숫자만 입력해 주세요. 공백/쉼표는 자동으로 무시됩니다.</p>
+            <p className="text-xs text-muted-foreground mt-1">가이드: 숫자만 입력해 주세요. 공백/쉼표는 자동으로 무시됩니다.&nbsp;</p>
             {formData.floorAreaM2 && !errors.floorAreaM2 && parseInt(formData.floorAreaM2, 10) > 0 && (
               <p className="text-xs text-muted-foreground mt-0.5">표기 예시: {formatWithCommas(formData.floorAreaM2)}m²</p>
             )}
